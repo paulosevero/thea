@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "thea"
+version = "0.1.0"
+description = ""
+authors = ["Paulo Severo <paulo.severo@edu.pucrs.br>"]
+
+[tool.poetry.dependencies]
+python = "^3.7.1"
+edge-sim-py = {git = "https://github.com/EdgeSimPy/EdgeSimPy.git", rev = "v1.0.0"}
+
+[tool.poetry.dev-dependencies]
+black = "^22.8.0"
+pylint = "^2.15.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 130
