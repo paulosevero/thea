@@ -18,6 +18,9 @@ from pymoo.algorithms.moo.nsga2 import NSGA2
 import numpy as np
 from random import sample, random
 
+# Variable that defines the NSGA-II algorithm's verbosity
+VERBOSE = True
+
 
 def random_fit() -> list:
     """Custom algorithm that generates random placement solutions.
@@ -211,26 +214,31 @@ class PlacementProblem(Problem):
 
 
 def nsgaii(parameters: dict = {}):
-    POPULATION_SIZE = 400
+    # Parsing the NSGA-II parameters
+    pop_size = parameters["pop_size"]
+    n_gen = parameters["n_gen"]
+    cross_prob = parameters["cross_prob"]
+    mut_prob = parameters["mut_prob"]
+
     # Generating initial population for the NSGA-II algorithm
     initial_population = []
-    while len(initial_population) < POPULATION_SIZE:
+    while len(initial_population) < pop_size:
         placement = random_fit()
         if placement not in initial_population:
             initial_population.append(placement)
 
     # Defining the NSGA-II attributes
     algorithm = NSGA2(
-        pop_size=POPULATION_SIZE,
+        pop_size=pop_size,
         sampling=np.array(initial_population),
-        crossover=get_crossover("int_ux", prob=1),
-        mutation=get_mutation("int_pm", prob=0.1),
+        crossover=get_crossover("int_ux", prob=cross_prob),
+        mutation=get_mutation("int_pm", prob=mut_prob),
         eliminate_duplicates=True,
     )
 
     # Running the NSGA-II algorithm
     problem = PlacementProblem()
-    res = minimize(problem, algorithm, termination=("n_gen", 700), seed=1, verbose=True, display=TheaDisplay())
+    res = minimize(problem, algorithm, termination=("n_gen", n_gen), seed=1, verbose=VERBOSE, display=TheaDisplay())
 
     # Parsing the NSGA-II's output
     min_delay_violations = float("inf")
