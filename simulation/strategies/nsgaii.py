@@ -5,19 +5,48 @@ from edge_sim_py.components.service import Service
 from edge_sim_py.components.container_layer import ContainerLayer
 
 # Importing helper methods
-from .helper_methods import *
+from simulation.helper_methods import *
 
 # Importing Pymoo components
 from pymoo.util.display import Display
 from pymoo.core.problem import Problem
 from pymoo.optimize import minimize
-from pymoo.factory import get_sampling, get_crossover, get_mutation
+from pymoo.factory import get_crossover, get_mutation
 from pymoo.algorithms.moo.nsga2 import NSGA2
 
 # Importing Python libraries
 import numpy as np
+from random import sample, random
 
-SAMPLE_TEST = True
+
+def random_fit() -> list:
+    """Custom algorithm that generates random placement solutions.
+
+    Returns:
+        placement (list): Generated placement solution.
+    """
+    if random() > 0.5:
+        placement = [sample(EdgeServer.all(), 1)[0].id for _ in range(Service.count())]
+    else:
+        services = sample(Service.all(), Service.count())
+        for service in services:
+            app = service.application
+            user = app.users[0]
+
+            # Shuffling the list of edge servers
+            edge_servers = sample(EdgeServer.all(), EdgeServer.count())
+
+            for edge_server in edge_servers:
+                # Checking if the host would have resources to host the service and its (additional) layers
+                if edge_server.has_capacity_to_host(service=service):
+                    provision(user=user, application=app, service=service, edge_server=edge_server)
+                    break
+
+        placement = [service.server.id for service in Service.all()]
+
+        reset_placement()
+
+    return placement
 
 
 def apply_placement(solution: list):
@@ -67,6 +96,8 @@ def evaluate_placement() -> tuple:
     delay_sla_violations = 0
     privacy_sla_violations = 0
     overall_edge_server_power_consumption = 0
+    watts_per_core = []
+    number_of_used_cpu_cores = 0
     overloaded_edge_servers = 0
 
     for user in User.all():
@@ -86,14 +117,11 @@ def evaluate_placement() -> tuple:
 
     for edge_server in EdgeServer.all():
         # Calculating objective #3: Infrastructure's Power Consumption
-        if SAMPLE_TEST:
-            if edge_server.cpu_demand > 0:
-                if edge_server.cpu == 8:
-                    overall_edge_server_power_consumption += 250
-                elif edge_server.cpu == 12:
-                    overall_edge_server_power_consumption += 550
-        else:
-            overall_edge_server_power_consumption += edge_server.get_power_consumption()
+        overall_edge_server_power_consumption += edge_server.get_power_consumption()
+        watts_per_core.append(
+            edge_server.cpu_demand * round(edge_server.power_model_parameters["max_power_consumption"] / edge_server.cpu)
+        )
+        number_of_used_cpu_cores += edge_server.cpu_demand
 
         # Calculating the edge server's free resources
         free_cpu = edge_server.cpu - edge_server.cpu_demand
@@ -108,7 +136,8 @@ def evaluate_placement() -> tuple:
     fitness_values = (
         delay_sla_violations,
         privacy_sla_violations,
-        overall_edge_server_power_consumption,
+        # sum(watts_per_core) / number_of_used_cpu_cores,
+        (sum(watts_per_core) / number_of_used_cpu_cores) * sum([1 for server in EdgeServer.all() if server.cpu_demand > 0]),
     )
     penalties = overloaded_edge_servers
 
@@ -134,9 +163,12 @@ class TheaDisplay(Display):
         objective_2 = int(np.min(algorithm.pop.get("F")[:, 1]))
         objective_3 = int(np.min(algorithm.pop.get("F")[:, 2]))
 
-        self.output.append("Delay Viol.", objective_1)
-        self.output.append("Priv. Viol.", objective_2)
-        self.output.append("Power Cons.", objective_3)
+        overloaded_servers = int(np.min(algorithm.pop.get("CV")[:, 0]))
+
+        self.output.append("Del Viol.", objective_1)
+        self.output.append("Pri Viol.", objective_2)
+        self.output.append("Pw. Cons.", objective_3)
+        self.output.append("Overloaded SVs", overloaded_servers)
 
 
 class PlacementProblem(Problem):
@@ -180,55 +212,58 @@ class PlacementProblem(Problem):
 
 
 def nsgaii(parameters: dict = {}):
+    POPULATION_SIZE = 400
+    # Generating initial population for the NSGA-II algorithm
+    initial_population = []
+    while len(initial_population) < POPULATION_SIZE:
+        placement = random_fit()
+        if placement not in initial_population:
+            initial_population.append(placement)
+
     # Defining the NSGA-II attributes
     algorithm = NSGA2(
-        pop_size=100,
-        sampling=get_sampling("int_random"),
+        pop_size=POPULATION_SIZE,
+        sampling=np.array(initial_population),
         crossover=get_crossover("int_ux", prob=1),
-        mutation=get_mutation("int_pm", prob=0.2),
+        mutation=get_mutation("int_pm", prob=0.1),
         eliminate_duplicates=True,
     )
 
     # Running the NSGA-II algorithm
     problem = PlacementProblem()
-    res = minimize(problem, algorithm, termination=("n_gen", 100), seed=1, verbose=True, display=TheaDisplay())
+    res = minimize(problem, algorithm, termination=("n_gen", 700), seed=1, verbose=True, display=TheaDisplay())
 
     # Parsing the NSGA-II's output
+    min_delay_violations = float("inf")
+    min_privacy_violations = float("inf")
+    min_power_consumption = float("inf")
+    max_delay_violations = float("-inf")
+    max_privacy_violations = float("-inf")
+    max_power_consumption = float("-inf")
     solutions = []
     for i in range(len(res.X)):
-        placement = res.X[i].tolist()
-        fitness = {
+        solution = {
+            "placement": res.X[i].tolist(),
             "Delay Violations": res.F[i][0],
-            "Privacy Violations": res.F[i][1],
+            "Priv. Violations": res.F[i][1],
             "Power Consumption": res.F[i][2],
+            "overloaded_servers": res.CV[i][0].tolist(),
         }
-        overloaded_servers = res.CV[i][0].tolist()
+        solutions.append(solution)
+        min_delay_violations = min(min_delay_violations, solution["Delay Violations"])
+        max_delay_violations = max(max_delay_violations, solution["Delay Violations"])
 
-        solutions.append({"placement": placement, "fitness": fitness, "overloaded_servers": overloaded_servers})
+        min_privacy_violations = min(min_privacy_violations, solution["Priv. Violations"])
+        max_privacy_violations = max(max_privacy_violations, solution["Priv. Violations"])
+
+        min_power_consumption = min(min_power_consumption, solution["Power Consumption"])
+        max_power_consumption = max(max_power_consumption, solution["Power Consumption"])
 
     # Applying the a placement scheme found by the NSGA-II algorithm
-    # best_solution = [7, 8, 1, 1, 7, 4, 4, 1, 5, 5]  # This is the solution manually calculated in the whiteboard
     best_solution = sorted(
         solutions,
-        key=lambda s: (s["fitness"]["Delay Violations"] * s["fitness"]["Privacy Violations"] * s["fitness"]["Power Consumption"])
-        ** (1 / 3),
+        key=lambda s: min_max_norm(x=s["Delay Violations"], min=min_delay_violations, max=max_delay_violations)
+        + min_max_norm(x=s["Priv. Violations"], min=min_privacy_violations, max=max_privacy_violations)
+        + min_max_norm(x=s["Power Consumption"], min=min_power_consumption, max=max_power_consumption),
     )[0]["placement"]
-
-    print(f"best_solution => {best_solution}")
-
     apply_placement(solution=best_solution)
-    result = evaluate_placement()
-
-    if SAMPLE_TEST:
-        print("==== SOLUTIONS ====")
-        for solution in solutions:
-            print(f"    {solution}")
-        print("")
-
-        print(f"\nBEST SOLUTION: {best_solution}")
-
-        print(f"OUTPUT: {result}")
-        print(f"    Delay SLA Violations: {result[0][0]}")
-        print(f"    Privacy SLA Violations: {result[0][1]}")
-        print(f"    Power Consumption: {result[0][2]}")
-        print(f"    Overloaded Edge Servers: {result[1]}")

@@ -5,10 +5,10 @@ description = "Latency-aware power-efficient microservice placement on federated
 authors = ["Paulo Severo <paulo.severo@edu.pucrs.br>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.7.1"
 edge-sim-py = {git = "https://github.com/EdgeSimPy/EdgeSimPy.git", rev = "v1.0.0"}
-matplotlib = "3.5.2"
 pymoo = "0.5.0"
+Cython = "^0.29.32"
 
 [tool.poetry.dev-dependencies]
 black = "^22.8.0"
@@ -18,4 +18,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.black]
-line-length = 130
+line-length = 135

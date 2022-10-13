@@ -9,11 +9,13 @@ import networkx as nx
 
 def optimized_set_communication_path(self, app: object, communication_path: list = []) -> list:
     """Updates the set of links used during the communication of user and its application.
+
     Args:
         app (object): User application.
         communication_path (list, optional): User-specified communication path. Defaults to [].
+
     Returns:
-        list: Updated communication path.
+        communication_path (list): Updated communication path.
     """
     topology = Topology.first()
 
@@ -42,9 +44,7 @@ def optimized_set_communication_path(self, app: object, communication_path: list
             if origin == target:
                 path = []
             else:
-                path = find_shortest_path(
-                    origin_network_switch=origin.network_switch, target_network_switch=target.network_switch
-                )
+                path = find_shortest_path(origin_network_switch=origin.network_switch, target_network_switch=target.network_switch)
 
             # Adding the best path found to the communication path
             self.communication_paths[str(app.id)].append([network_switch.id for network_switch in path])
@@ -56,7 +56,8 @@ def optimized_set_communication_path(self, app: object, communication_path: list
     # Computing application's delay
     self._compute_delay(app=app, metric="latency")
 
-    return self.communication_paths[str(app.id)]
+    communication_path = self.communication_paths[str(app.id)]
+    return communication_path
 
 
 def provision(user: object, application: object, service: object, edge_server: object):
@@ -120,7 +121,7 @@ def find_shortest_path(origin_network_switch: object, target_network_switch: obj
     return path
 
 
-def get_delay(origin_network_switch: object, target_network_switch: object) -> int:
+def calculate_path_delay(origin_network_switch: object, target_network_switch: object) -> int:
     """Gets the distance (in terms of delay) between two network switches (origin and target).
 
     Args:
@@ -136,3 +137,49 @@ def get_delay(origin_network_switch: object, target_network_switch: object) -> i
     delay = topology.calculate_path_delay(path=path)
 
     return delay
+
+
+def sign(value: int):
+    """Calculates the sign of a real number using the well-known "sign" function (https://wikipedia.org/wiki/Sign_function).
+
+    Args:
+        value (int): Value whose sign must be calculated.
+
+    Returns:
+        (int): Sign of the passed value.
+    """
+    if value > 0:
+        return 1
+    if value < 0:
+        return -1
+    return 0
+
+
+def min_max_norm(x, min, max):
+    """Normalizes a given value (x) using the Min-Max Normalization method.
+
+    Args:
+        x (any): Value that must be normalized.
+        min (any): Minimum value known.
+        max (any): Maximum value known.
+
+    Returns:
+        (any): Normalized value.
+    """
+    if min == max:
+        return 1
+    return (x - min) / (max - min)
+
+
+def normalize_cpu_and_memory(cpu, memory) -> float:
+    """Normalizes the CPU and memory values.
+
+    Args:
+        cpu (float): CPU value.
+        memory (float): Memory value.
+
+    Returns:
+        normalized_value (float): Normalized value.
+    """
+    normalized_value = (cpu * memory) ** (1 / 2)
+    return normalized_value

@@ -2,10 +2,52 @@
 from edge_sim_py import *
 
 # Python libraries
-import copy
 from random import seed, choice
-import networkx as nx
 import matplotlib.pyplot as plt
+import networkx as nx
+import random
+import copy
+
+
+def uniform(n_items: int, valid_values: list, shuffle_distribution: bool = True) -> list:
+    """Creates a list of size "n_items" with values from "valid_values" according to the uniform distribution.
+    By default, the method shuffles the created list to avoid unbalanced spread of the distribution.
+
+    Args:
+        n_items (int): Number of items that will be created.
+        valid_values (list): List of valid values for the list of values.
+        shuffle_distribution (bool, optional): Defines whether the distribution is shuffled or not. Defaults to True.
+
+    Raises:
+        Exception: Invalid "valid_values" argument.
+
+    Returns:
+        uniform_distribution (list): List of values arranged according to the uniform distribution.
+    """
+    if not isinstance(valid_values, list) or isinstance(valid_values, list) and len(valid_values) == 0:
+        raise Exception("You must inform a list of valid values within the 'valid_values' attribute.")
+
+    # Number of occurrences that will be created of each item in the "valid_values" list
+    distribution = [int(n_items / len(valid_values)) for _ in range(0, len(valid_values))]
+
+    # List with size "n_items" that will be populated with "valid_values" according to the uniform distribution
+    uniform_distribution = []
+
+    for i, value in enumerate(valid_values):
+        for _ in range(0, int(distribution[i])):
+            uniform_distribution.append(value)
+
+    # Computing leftover randomly to avoid disturbing the distribution
+    leftover = n_items % len(valid_values)
+    for i in range(leftover):
+        random_valid_value = random.choice(valid_values)
+        uniform_distribution.append(random_valid_value)
+
+    # Shuffling distribution values in case 'shuffle_distribution' parameter is True
+    if shuffle_distribution:
+        random.shuffle(uniform_distribution)
+
+    return uniform_distribution
 
 
 def display_topology(topology: object, output_filename: str = "topology"):
@@ -13,20 +55,55 @@ def display_topology(topology: object, output_filename: str = "topology"):
     positions = {}
     labels = {}
     colors = []
+    sizes = []
+
+    color_options = ["red", "green", "blue", "purple", "orange"]
+
     for index, node in enumerate(topology.nodes()):
         positions[node] = node.coordinates if hasattr(node, "coordinates") else index
         labels[node] = node.id if hasattr(node, "id") else index
+        node_size = 500 if any(user.coordinates == node.coordinates for user in User.all()) else 100
+        sizes.append(node_size)
 
         if len(node.base_station.edge_servers) > 0:
-            colors.append("red")
+            colors.append(color_options[node.base_station.edge_servers[0].infrastructure_provider - 1])
         else:
             colors.append("black")
 
     # Configuring drawing scheme
-    nx.draw(topology, pos=positions, node_color=colors, labels=labels, font_size=6, font_weight="bold", font_color="whitesmoke")
+    nx.draw(
+        topology,
+        pos=positions,
+        node_color=colors,
+        node_size=sizes,
+        labels=labels,
+        font_size=6,
+        font_weight="bold",
+        font_color="whitesmoke",
+    )
 
     # Saving a topology image in the disk
     plt.savefig(f"{output_filename}.png", dpi=150)
+
+
+# Application -> provisioned
+def application_to_dict(self) -> dict:
+    """Method that overrides the way the object is formatted to JSON."
+    Returns:
+        dict: JSON-friendly representation of the object as a dictionary.
+    """
+    dictionary = {
+        "attributes": {
+            "id": self.id,
+            "label": self.label,
+            "provisioned": self.provisioned,
+        },
+        "relationships": {
+            "services": [{"class": type(service).__name__, "id": service.id} for service in self.services],
+            "users": [{"class": type(user).__name__, "id": user.id} for user in self.users],
+        },
+    }
+    return dictionary
 
 
 # User -> providers_trust
@@ -87,9 +164,7 @@ def edge_server_to_dict(self) -> dict:
         },
         "relationships": {
             "power_model": self.power_model.__name__ if self.power_model else None,
-            "base_station": {"class": type(self.base_station).__name__, "id": self.base_station.id}
-            if self.base_station
-            else None,
+            "base_station": {"class": type(self.base_station).__name__, "id": self.base_station.id} if self.base_station else None,
             "network_switch": {"class": type(self.network_switch).__name__, "id": self.network_switch.id}
             if self.network_switch
             else None,
@@ -132,7 +207,8 @@ def service_to_dict(self) -> dict:
 seed(1)
 
 # Creating list of map coordinates
-map_coordinates = hexagonal_grid(x_size=7, y_size=7)
+MAP_SIZE = 9
+map_coordinates = hexagonal_grid(x_size=MAP_SIZE, y_size=MAP_SIZE)
 
 
 # Creating base stations for providing wireless connectivity to users and network switches for wired connectivity
@@ -151,51 +227,77 @@ for coordinates in map_coordinates:
 partially_connected_hexagonal_mesh(
     network_nodes=NetworkSwitch.all(),
     link_specifications=[
-        {"number_of_objects": 120, "delay": 1, "bandwidth": 10},
+        {"number_of_objects": 208, "delay": 1, "bandwidth": 10},
     ],
 )
 
 
-def sample_server1() -> object:
-    """Creates an EdgeServer object according to a sample specifications set.
+def sgi_rackable_c2112_4g10() -> object:
+    """Creates an EdgeServer object according to XXXX [TODO].
 
     Returns:
         edge_server (object): Created EdgeServer object.
     """
     edge_server = EdgeServer()
-    edge_server.model_name = "Sample Server Spec #1"
+    edge_server.model_name = "SGI Rackable C2112-4G10"
 
     # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
-    edge_server.cpu = 8
-    edge_server.memory = 8192
-    edge_server.disk = 131072
+    edge_server.cpu = 32
+    edge_server.memory = 32768
+    edge_server.disk = 1048576
+    edge_server.mips = 2750
 
     # Power-related attributes
     edge_server.power_model_parameters = {
-        "static_power_percentage": 54.1,
-        "max_power_consumption": 243,
+        "static_power_percentage": 265 / 1387,
+        "max_power_consumption": 1387,
     }
 
     return edge_server
 
 
-def sample_server2():
-    """Creates an EdgeServer object according to a sample specifications set.
+def proliant_dl360_gen9() -> object:
+    """Creates an EdgeServer object according to XXXX [TODO].
 
     Returns:
         edge_server (object): Created EdgeServer object.
     """
     edge_server = EdgeServer()
-    edge_server.model_name = "Sample Server Spec #2"
+    edge_server.model_name = "HPE ProLiant DL360 Gen9"
 
     # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
-    edge_server.cpu = 12
-    edge_server.memory = 12288
-    edge_server.disk = 131072
+    edge_server.cpu = 36
+    edge_server.memory = 65536
+    edge_server.disk = 1048576
+    edge_server.mips = 3000
 
     # Power-related attributes
     edge_server.power_model_parameters = {
-        "static_power_percentage": 127,
+        "static_power_percentage": 45 / 276,
+        "max_power_consumption": 276,
+    }
+
+    return edge_server
+
+
+def ar585_f1() -> object:
+    """Creates an EdgeServer object according to XXXX [TODO].
+
+    Returns:
+        edge_server (object): Created EdgeServer object.
+    """
+    edge_server = EdgeServer()
+    edge_server.model_name = "Acer AR585 F1"
+
+    # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
+    edge_server.cpu = 48
+    edge_server.memory = 65536
+    edge_server.disk = 1048576
+    edge_server.mips = 3500
+
+    # Power-related attributes
+    edge_server.power_model_parameters = {
+        "static_power_percentage": 127 / 559,
         "max_power_consumption": 559,
     }
 
@@ -203,37 +305,54 @@ def sample_server2():
 
 
 # Creating edge servers
-base_stations_ids = [43, 49, 37, 32, 22, 28, 11, 1, 7]
-infrastructure_providers = [1, 1, 2, 2, 3, 3, 1, 3, 2]
-specs = [
-    sample_server1,
-    sample_server2,
-    sample_server2,
-    sample_server1,
-    sample_server1,
-    sample_server2,
-    sample_server1,
-    sample_server1,
-    sample_server2,
+SERVERS_PER_SPEC_TRUSTED_PROVIDERS = 1
+SERVERS_PER_SPEC_UNTRUSTED_PROVIDER = 4
+provider_specs = [
+    {
+        "id": 1,
+        "edge_server_specs": [
+            {"spec": sgi_rackable_c2112_4g10, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+            {"spec": proliant_dl360_gen9, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+            {"spec": ar585_f1, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+        ],
+    },
+    {
+        "id": 2,
+        "edge_server_specs": [
+            {"spec": sgi_rackable_c2112_4g10, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+            {"spec": proliant_dl360_gen9, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+            {"spec": ar585_f1, "number_of_objects": SERVERS_PER_SPEC_TRUSTED_PROVIDERS},
+        ],
+    },
+    {
+        "id": 3,
+        "edge_server_specs": [
+            {"spec": sgi_rackable_c2112_4g10, "number_of_objects": SERVERS_PER_SPEC_UNTRUSTED_PROVIDER},
+            {"spec": proliant_dl360_gen9, "number_of_objects": SERVERS_PER_SPEC_UNTRUSTED_PROVIDER},
+            {"spec": ar585_f1, "number_of_objects": SERVERS_PER_SPEC_UNTRUSTED_PROVIDER},
+        ],
+    },
 ]
 
-for i in range(9):
-    # Creating the edge server object
-    edge_server = specs[i]()
+for provider_spec in provider_specs:
+    for edge_server_spec in provider_spec["edge_server_specs"]:
+        for _ in range(edge_server_spec["number_of_objects"]):
+            # Creating the edge server object
+            edge_server = edge_server_spec["spec"]()
 
-    # Defining the maximum number of layers that the edge server can pull simultaneously
-    edge_server.max_concurrent_layer_downloads = 3
+            # Defining the maximum number of layers that the edge server can pull simultaneously
+            edge_server.max_concurrent_layer_downloads = 3
 
-    # Specifying the edge server's power model
-    edge_server.power_model = LinearServerPowerModel
+            # Specifying the edge server's power model
+            edge_server.power_model = LinearServerPowerModel
 
-    # Edge server's infrastructure provider
-    edge_server.infrastructure_provider = infrastructure_providers[edge_server.id - 1]
+            # Edge server's infrastructure provider
+            edge_server.infrastructure_provider = provider_spec["id"]
 
-    # Connecting the edge server to a random base station
-    base_station = BaseStation.find_by_id(base_stations_ids[edge_server.id - 1])
-    base_station._connect_to_edge_server(edge_server=edge_server)
-
+            # Connecting the edge server to a random base station
+            base_stations_without_edge_servers = [bs for bs in BaseStation.all() if len(bs.edge_servers) == 0]
+            base_station = random.sample(base_stations_without_edge_servers, 1)[0]
+            base_station._connect_to_edge_server(edge_server=edge_server)
 
 # Defining specifications for container images and container registries
 container_image_specifications = [
@@ -249,280 +368,6 @@ container_image_specifications = [
             }
         ],
         "layers_digests": ["sha256:df9b9388f04ad6279a7410b85cedfdcb2208c0a003da7ab5613af71079148139"],
-    },
-    {
-        "name": "nginx",
-        "tag": "latest",
-        "digest": "sha256:83d487b625d8c7818044c04f1b48aabccd3f51c3341fc300926846bca0c439e6",
-        "layers": [
-            {
-                "digest": "sha256:c229119241af7b23b121052a1cae4c03e0a477a72ea6a7f463ad7623ff8f274b",
-                "size": 29,
-                "instruction": "ADD file:966d3669b40f5fbaecee1",
-            },
-            {
-                "digest": "sha256:2215908dc0a28873ff92070371b1ba3a3cb9d4440d44926c5f29f47a76b17b35",
-                "size": 24,
-                "instruction": "/bin/sh -c set -x     && addgr",
-            },
-        ],
-        "layers_digests": [
-            "sha256:c229119241af7b23b121052a1cae4c03e0a477a72ea6a7f463ad7623ff8f274b",
-            "sha256:2215908dc0a28873ff92070371b1ba3a3cb9d4440d44926c5f29f47a76b17b35",
-        ],
-    },
-    {
-        "name": "ubuntu",
-        "tag": "latest",
-        "digest": "sha256:31cd7bbfd36421dfd338bceb36d803b3663c1bfa87dfe6af7ba764b5bf34de05",
-        "layers": [
-            {
-                "digest": "sha256:e0b25ef516347a097d75f8aea6bc0f42a4e8e70b057e84d85098d51f96d458f9",
-                "size": 27,
-                "instruction": "ADD file:b83df51ab7caf8a4dc35f",
-            }
-        ],
-        "layers_digests": ["sha256:e0b25ef516347a097d75f8aea6bc0f42a4e8e70b057e84d85098d51f96d458f9"],
-    },
-    {
-        "name": "python",
-        "tag": "latest",
-        "digest": "sha256:dff8c1e4c3a609e87c05f1e08399332cf2dfb2b41d9bc91e142eb5c2bee887a0",
-        "layers": [
-            {
-                "digest": "sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5",
-                "size": 52,
-                "instruction": "ADD file:e8d512b08fe2ddc6f2c85",
-            },
-            {
-                "digest": "sha256:9baf437a1badb6aad2dae5f2cd4a7b53a6c7ab6c14cba1ed1ecb42b4822b0e87",
-                "size": 4,
-                "instruction": "/bin/sh -c set -eux; \tapt-get ",
-            },
-            {
-                "digest": "sha256:6ade5c59e324bd7cf369c72ad781c23d37e8fb48c9bbb4abbecafafd9be4cc35",
-                "size": 10,
-                "instruction": "/bin/sh -c set -ex; \tif ! comm",
-            },
-            {
-                "digest": "sha256:b19a994f6d4cdbb620339bd2e4ad47b229f14276b542060622ae447649294e5d",
-                "size": 52,
-                "instruction": "/bin/sh -c apt-get update && a",
-            },
-            {
-                "digest": "sha256:8fc2294f89de5e20d0ae12149d6136444bcb8c775ea745f06f2eb775ab4504cd",
-                "size": 187,
-                "instruction": "/bin/sh -c set -ex; \tapt-get u",
-            },
-            {
-                "digest": "sha256:9dc715194c21dec8f4d20ea4faa9929b2297b24c123fc8459709266f43e83449",
-                "size": 5,
-                "instruction": "/bin/sh -c set -eux; \tapt-get ",
-            },
-            {
-                "digest": "sha256:59dc3c5729cd1d72b2fd0913953484d4ecc453f833e0ab53d074bcd6c0746d27",
-                "size": 18,
-                "instruction": "/bin/sh -c set -eux; \t\twget -O",
-            },
-            {
-                "digest": "sha256:2050bfe553ed386581e99bb5724e3565b1dc444ce5d5ce7fb355876e66e655e8",
-                "size": 2,
-                "instruction": "/bin/sh -c set -eux; \t\twget -O",
-            },
-        ],
-        "layers_digests": [
-            "sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5",
-            "sha256:9baf437a1badb6aad2dae5f2cd4a7b53a6c7ab6c14cba1ed1ecb42b4822b0e87",
-            "sha256:6ade5c59e324bd7cf369c72ad781c23d37e8fb48c9bbb4abbecafafd9be4cc35",
-            "sha256:b19a994f6d4cdbb620339bd2e4ad47b229f14276b542060622ae447649294e5d",
-            "sha256:8fc2294f89de5e20d0ae12149d6136444bcb8c775ea745f06f2eb775ab4504cd",
-            "sha256:9dc715194c21dec8f4d20ea4faa9929b2297b24c123fc8459709266f43e83449",
-            "sha256:59dc3c5729cd1d72b2fd0913953484d4ecc453f833e0ab53d074bcd6c0746d27",
-            "sha256:2050bfe553ed386581e99bb5724e3565b1dc444ce5d5ce7fb355876e66e655e8",
-        ],
-    },
-    {
-        "name": "postgres",
-        "tag": "latest",
-        "digest": "sha256:d67b82a04a19b72667264a9641873c15e2195ccfeb82b3d4a653673cdfc1f2cf",
-        "layers": [
-            {
-                "digest": "sha256:5c2a8045f9de06328ab3d0ff505d990892219b7faee393bc9ac342347fc83d04",
-                "size": 28,
-                "instruction": "ADD file:32aa9fd7ee5c64e4bd494",
-            },
-            {
-                "digest": "sha256:602c15e6b04ce0152d8397747b43883ed8da9c6d3b77f88a4156c8808b42a107",
-                "size": 4,
-                "instruction": "/bin/sh -c set -ex; \tif ! comm",
-            },
-            {
-                "digest": "sha256:8e25582ffd7cb07fb4f3987d1cbca9c80ff0d95c0a4ffc067d9faa17f97074a0",
-                "size": 1,
-                "instruction": "/bin/sh -c set -eux; \tsavedApt",
-            },
-            {
-                "digest": "sha256:59483323305f97a3f72f8358ad29d9b9c9234934cd21edad917ef2d92033f68e",
-                "size": 7,
-                "instruction": "/bin/sh -c set -eux; \tif [ -f ",
-            },
-            {
-                "digest": "sha256:eb192a0edc8f2d7b523bfcd1e62331a5eb517945eed1b4973a87a775753eb36d",
-                "size": 1,
-                "instruction": "/bin/sh -c set -eux; \tapt-get ",
-            },
-            {
-                "digest": "sha256:5fa84b0f5ddec145f4ffd600e50e8abad1db41e816a3f336c7feb6cab4b75ed4",
-                "size": 83,
-                "instruction": "/bin/sh -c set -ex; \t\texport P",
-            },
-        ],
-        "layers_digests": [
-            "sha256:5c2a8045f9de06328ab3d0ff505d990892219b7faee393bc9ac342347fc83d04",
-            "sha256:602c15e6b04ce0152d8397747b43883ed8da9c6d3b77f88a4156c8808b42a107",
-            "sha256:8e25582ffd7cb07fb4f3987d1cbca9c80ff0d95c0a4ffc067d9faa17f97074a0",
-            "sha256:59483323305f97a3f72f8358ad29d9b9c9234934cd21edad917ef2d92033f68e",
-            "sha256:eb192a0edc8f2d7b523bfcd1e62331a5eb517945eed1b4973a87a775753eb36d",
-            "sha256:5fa84b0f5ddec145f4ffd600e50e8abad1db41e816a3f336c7feb6cab4b75ed4",
-        ],
-    },
-    {
-        "name": "redis",
-        "tag": "latest",
-        "digest": "sha256:1b36e146475b71ee04da1ce60f201308392ff8468107f91615885d2e49536010",
-        "layers": [
-            {
-                "digest": "sha256:c229119241af7b23b121052a1cae4c03e0a477a72ea6a7f463ad7623ff8f274b",
-                "size": 29,
-                "instruction": "ADD file:966d3669b40f5fbaecee1",
-            },
-            {
-                "digest": "sha256:5e59eaa723f193c889435d757b05fcc030596d2f075c7fecbbd538a53200aa40",
-                "size": 1,
-                "instruction": "/bin/sh -c set -eux; \tsavedApt",
-            },
-            {
-                "digest": "sha256:fd5ad76698193c47aa7a5711c08dc24d97c5cc9d1a40e22a6647f45a6e1389a7",
-                "size": 7,
-                "instruction": "/bin/sh -c set -eux; \t\tsavedAp",
-            },
-        ],
-        "layers_digests": [
-            "sha256:c229119241af7b23b121052a1cae4c03e0a477a72ea6a7f463ad7623ff8f274b",
-            "sha256:5e59eaa723f193c889435d757b05fcc030596d2f075c7fecbbd538a53200aa40",
-            "sha256:fd5ad76698193c47aa7a5711c08dc24d97c5cc9d1a40e22a6647f45a6e1389a7",
-        ],
-    },
-    {
-        "name": "node",
-        "tag": "latest",
-        "digest": "sha256:87cea4658eb63b6bc1fb52a5f0c7f3c833615449f6e803cb8f2182f2a59ae09d",
-        "layers": [
-            {
-                "digest": "sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5",
-                "size": 52,
-                "instruction": "ADD file:e8d512b08fe2ddc6f2c85",
-            },
-            {
-                "digest": "sha256:9baf437a1badb6aad2dae5f2cd4a7b53a6c7ab6c14cba1ed1ecb42b4822b0e87",
-                "size": 4,
-                "instruction": "/bin/sh -c set -eux; \tapt-get ",
-            },
-            {
-                "digest": "sha256:6ade5c59e324bd7cf369c72ad781c23d37e8fb48c9bbb4abbecafafd9be4cc35",
-                "size": 10,
-                "instruction": "/bin/sh -c set -ex; \tif ! comm",
-            },
-            {
-                "digest": "sha256:b19a994f6d4cdbb620339bd2e4ad47b229f14276b542060622ae447649294e5d",
-                "size": 52,
-                "instruction": "/bin/sh -c apt-get update && a",
-            },
-            {
-                "digest": "sha256:8fc2294f89de5e20d0ae12149d6136444bcb8c775ea745f06f2eb775ab4504cd",
-                "size": 187,
-                "instruction": "/bin/sh -c set -ex; \tapt-get u",
-            },
-            {
-                "digest": "sha256:6b0eb7b290939e1eb2829c8c423a87f044b13dce23bfe7241f67408f9b732bc8",
-                "size": 42,
-                "instruction": '/bin/sh -c ARCH= && dpkgArch="',
-            },
-            {
-                "digest": "sha256:9349bc5bacd1cfacfebf2f06fb628f9a759933cddd7d5039e1cfe3a05d26c0f8",
-                "size": 2,
-                "instruction": "/bin/sh -c set -ex   && for ke",
-            },
-        ],
-        "layers_digests": [
-            "sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5",
-            "sha256:9baf437a1badb6aad2dae5f2cd4a7b53a6c7ab6c14cba1ed1ecb42b4822b0e87",
-            "sha256:6ade5c59e324bd7cf369c72ad781c23d37e8fb48c9bbb4abbecafafd9be4cc35",
-            "sha256:b19a994f6d4cdbb620339bd2e4ad47b229f14276b542060622ae447649294e5d",
-            "sha256:8fc2294f89de5e20d0ae12149d6136444bcb8c775ea745f06f2eb775ab4504cd",
-            "sha256:6b0eb7b290939e1eb2829c8c423a87f044b13dce23bfe7241f67408f9b732bc8",
-            "sha256:9349bc5bacd1cfacfebf2f06fb628f9a759933cddd7d5039e1cfe3a05d26c0f8",
-        ],
-    },
-    {
-        "name": "mongo",
-        "tag": "latest",
-        "digest": "sha256:31bb47830cb0ff00f90be54a62f8be416189bd0b52f4a76bb5ac3f450860228a",
-        "layers": [
-            {
-                "digest": "sha256:e0b25ef516347a097d75f8aea6bc0f42a4e8e70b057e84d85098d51f96d458f9",
-                "size": 27,
-                "instruction": "ADD file:b83df51ab7caf8a4dc35f",
-            },
-            {
-                "digest": "sha256:7a6592c2fb05fb80b5a3c01c92bc623faf5fc0ded7dd0551be39ea78a4d9efc8",
-                "size": 2,
-                "instruction": "/bin/sh -c set -eux; \tapt-get ",
-            },
-            {
-                "digest": "sha256:5dad2281c276115bf50711681c05326e6a65cec55a5d727481ac937664a35efa",
-                "size": 6,
-                "instruction": "/bin/sh -c set -ex; \t\tsavedApt",
-            },
-            {
-                "digest": "sha256:97291b67bd8ea1784d4f2c2bb8d0563a2e67091848d6bda10ef42e8c54d96b32",
-                "size": 201,
-                "instruction": "/bin/sh -c set -x \t&& export D",
-            },
-        ],
-        "layers_digests": [
-            "sha256:e0b25ef516347a097d75f8aea6bc0f42a4e8e70b057e84d85098d51f96d458f9",
-            "sha256:7a6592c2fb05fb80b5a3c01c92bc623faf5fc0ded7dd0551be39ea78a4d9efc8",
-            "sha256:5dad2281c276115bf50711681c05326e6a65cec55a5d727481ac937664a35efa",
-            "sha256:97291b67bd8ea1784d4f2c2bb8d0563a2e67091848d6bda10ef42e8c54d96b32",
-        ],
-    },
-    {
-        "name": "openjdk",
-        "tag": "latest",
-        "digest": "sha256:afbe5f6d76c1eedbbd2f689c18c1984fd67121b369fc0fbd51c510caf4f9544f",
-        "layers": [
-            {
-                "digest": "sha256:e4430e06691f65e516df7d62db0ee5393acea9ade644cc6bc620efef0956dd17",
-                "size": 40,
-                "instruction": "ADD file:eaa532cad071c531a759e",
-            },
-            {
-                "digest": "sha256:99ce5342b806de618f4fa582eca53ecee5a73ef976daa060d249227e1927d814",
-                "size": 12,
-                "instruction": "/bin/sh -c set -eux; \tmicrodnf",
-            },
-            {
-                "digest": "sha256:603e156f2a3d954d3516817cf4a802f31365085b43426685c995ad144fde567a",
-                "size": 178,
-                "instruction": '/bin/sh -c set -eux; \t\tarch="$',
-            },
-        ],
-        "layers_digests": [
-            "sha256:e4430e06691f65e516df7d62db0ee5393acea9ade644cc6bc620efef0956dd17",
-            "sha256:99ce5342b806de618f4fa582eca53ecee5a73ef976daa060d249227e1927d814",
-            "sha256:603e156f2a3d954d3516817cf4a802f31365085b43426685c995ad144fde567a",
-        ],
     },
     {
         "name": "registry",
@@ -545,39 +390,17 @@ container_image_specifications = [
             "sha256:b6846b9db566bc2ea5e2b0056c49772152c9b7c8f06343efb1ef764b23bb9d96",
         ],
     },
-    {
-        "name": "debian",
-        "tag": "latest",
-        "digest": "sha256:0040bafca14127bdc2dcb0d9897a26f5d44136e89c02046710de6ea01a227278",
-        "layers": [
-            {
-                "digest": "sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5",
-                "size": 52,
-                "instruction": "ADD file:e8d512b08fe2ddc6f2c85",
-            }
-        ],
-        "layers_digests": ["sha256:dbba69284b2786013fe94fefe0c2e66a7d3cecbb20f6d691d71dac891ee37be5"],
-    },
 ]
 
 
 container_registry_specifications = [
     {
-        "number_of_objects": 5,
+        "number_of_objects": 1,
         "cpu_demand": 0,
         "memory_demand": 0,
         "images": [
             {"name": "registry", "tag": "latest"},
             {"name": "alpine", "tag": "latest"},
-            {"name": "nginx", "tag": "latest"},
-            {"name": "ubuntu", "tag": "latest"},
-            {"name": "python", "tag": "latest"},
-            {"name": "debian", "tag": "latest"},
-            {"name": "node", "tag": "latest"},
-            {"name": "postgres", "tag": "latest"},
-            {"name": "openjdk", "tag": "latest"},
-            {"name": "redis", "tag": "latest"},
-            {"name": "mongo", "tag": "latest"},
         ],
     }
 ]
@@ -604,277 +427,199 @@ def random_user_placement():
     return coordinates
 
 
+# Defining applications/services specifications
 application_specifications = [
-    {
-        "number_of_objects": 1,
-        "users": [
-            {
-                "delay_sla": 5,
-                "provisioning_time_sla": 0,
-                "base_station": BaseStation.find_by_id(5),
-                "coordinates": random_user_placement,
-                "mobility_model": pathway,
-                "providers_trust": {"1": 1, "2": 2, "3": 3},
-                "access_pattern": {
-                    "model": CircularDurationAndIntervalAccessPattern,
-                    "start": 1,
-                    "duration_values": [float("inf")],
-                    "interval_values": [0],
-                },
-            },
-        ],
-        "services": [
-            {
-                "image": {"name": "alpine"},
-                "cpu_demand": 4,
-                "memory_demand": 4096,
-                "label": "alpine",
-                "state": 0,
-                "privacy_requirement": 1,
-            },
-            {
-                "image": {"name": "nginx"},
-                "cpu_demand": 7,
-                "memory_demand": 7168,
-                "label": "nginx",
-                "state": 0,
-                "privacy_requirement": 3,
-            },
-        ],
-    },
-    {
-        "number_of_objects": 1,
-        "users": [
-            {
-                "delay_sla": 4,
-                "provisioning_time_sla": 0,
-                "base_station": BaseStation.find_by_id(46),
-                "coordinates": random_user_placement,
-                "mobility_model": pathway,
-                "providers_trust": {"1": 3, "2": 1, "3": 2},
-                "access_pattern": {
-                    "model": CircularDurationAndIntervalAccessPattern,
-                    "start": 1,
-                    "duration_values": [float("inf")],
-                    "interval_values": [0],
-                },
-            },
-        ],
-        "services": [
-            {
-                "image": {"name": "ubuntu"},
-                "cpu_demand": 5,
-                "memory_demand": 5120,
-                "label": "ubuntu",
-                "state": 0,
-                "privacy_requirement": 2,
-            },
-            {
-                "image": {"name": "python"},
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "label": "python",
-                "state": 0,
-                "privacy_requirement": 3,
-            },
-        ],
-    },
-    {
-        "number_of_objects": 1,
-        "users": [
-            {
-                "delay_sla": 2,
-                "provisioning_time_sla": 0,
-                "base_station": BaseStation.find_by_id(17),
-                "coordinates": random_user_placement,
-                "mobility_model": pathway,
-                "providers_trust": {"1": 2, "2": 3, "3": 1},
-                "access_pattern": {
-                    "model": CircularDurationAndIntervalAccessPattern,
-                    "start": 1,
-                    "duration_values": [float("inf")],
-                    "interval_values": [0],
-                },
-            },
-        ],
-        "services": [
-            {
-                "image": {"name": "debian"},
-                "cpu_demand": 4,
-                "memory_demand": 4096,
-                "label": "debian",
-                "state": 0,
-                "privacy_requirement": 2,
-            }
-        ],
-    },
-    {
-        "number_of_objects": 1,
-        "users": [
-            {
-                "delay_sla": 4,
-                "provisioning_time_sla": 0,
-                "base_station": BaseStation.find_by_id(41),
-                "coordinates": random_user_placement,
-                "mobility_model": pathway,
-                "providers_trust": {"1": 1, "2": 2, "3": 3},
-                "access_pattern": {
-                    "model": CircularDurationAndIntervalAccessPattern,
-                    "start": 1,
-                    "duration_values": [float("inf")],
-                    "interval_values": [0],
-                },
-            },
-        ],
-        "services": [
-            {
-                "image": {"name": "node"},
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "label": "node",
-                "state": 0,
-                "privacy_requirement": 1,
-            },
-            {
-                "image": {"name": "postgres"},
-                "cpu_demand": 5,
-                "memory_demand": 5120,
-                "label": "postgres",
-                "state": 0,
-                "privacy_requirement": 2,
-            },
-        ],
-    },
-    {
-        "number_of_objects": 1,
-        "users": [
-            {
-                "delay_sla": 5,
-                "provisioning_time_sla": 0,
-                "base_station": BaseStation.find_by_id(36),
-                "coordinates": random_user_placement,
-                "mobility_model": pathway,
-                "providers_trust": {"1": 3, "2": 1, "3": 2},
-                "access_pattern": {
-                    "model": CircularDurationAndIntervalAccessPattern,
-                    "start": 1,
-                    "duration_values": [float("inf")],
-                    "interval_values": [0],
-                },
-            },
-        ],
-        "services": [
-            {
-                "image": {"name": "openjdk"},
-                "cpu_demand": 1,
-                "memory_demand": 1024,
-                "label": "openjdk",
-                "state": 0,
-                "privacy_requirement": 3,
-            },
-            {
-                "image": {"name": "redis"},
-                "cpu_demand": 5,
-                "memory_demand": 5120,
-                "label": "redis",
-                "state": 0,
-                "privacy_requirement": 2,
-            },
-            {
-                "image": {"name": "mongo"},
-                "cpu_demand": 3,
-                "memory_demand": 3072,
-                "label": "mongo",
-                "state": 0,
-                "privacy_requirement": 1,
-            },
-        ],
-    },
+    {"number_of_objects": 2, "number_of_services": 2},
+    {"number_of_objects": 2, "number_of_services": 4},
+    {"number_of_objects": 2, "number_of_services": 6},
 ]
 
+# Defining user delay SLA values (application specs are mirrored for each provider and each application has its own user)
+delay_slas = uniform(
+    n_items=sum([app_spec["number_of_objects"] for app_spec in application_specifications]) * 2,
+    valid_values=[3, 6],
+    shuffle_distribution=True,
+)
 
-# Creating applications and services based on the "application_specifications" list
-users_base_stations = [5, 46, 17, 41, 36]
-for app_spec in application_specifications:
-    # Creating "n" applications with each of the specifications according to the "number_of_objects" attributes
-    for _ in range(app_spec["number_of_objects"]):
-        app = Application()
+# Defining service demands
+service_demand_values = [
+    {"cpu": 2, "memory": 2 * 1024},
+    {"cpu": 4, "memory": 4 * 1024},
+    {"cpu": 8, "memory": 8 * 1024},
+    {"cpu": 16, "memory": 16 * 1024},
+]
+# The number of services considers all service demand combinations multiplied by two (one for each highly trusted provider)
+number_of_services = (
+    sum([app_spec["number_of_objects"] * app_spec["number_of_services"] for app_spec in application_specifications]) * 2
+)
+service_demands = uniform(
+    n_items=number_of_services,
+    valid_values=service_demand_values,
+    shuffle_distribution=True,
+)
 
-        # Creating users that access the application
-        for user_spec in app_spec["users"]:
+# Defining user/provider trust patterns
+providers_trust_patterns = [[2, 1, 0], [1, 2, 0]]
+
+for provider_trust_pattern in providers_trust_patterns:
+    for app_spec in application_specifications:
+        for _ in range(app_spec["number_of_objects"]):
+            app = Application()
+            app.provisioned = False
+
+            # Creating the user that access the application
             user = User()
 
-            # Connecting the user to the application
-            user._connect_to_application(app=app, delay_sla=user_spec["delay_sla"])
-            user.communication_paths[str(app.id)] = {}
+            # Defining user trust on the providers
+            user.providers_trust = {1: provider_trust_pattern[0], 2: provider_trust_pattern[1], 3: provider_trust_pattern[2]}
 
-            user.provisioning_time_slas = {}
-            user.provisioning_time_slas[str(app.id)] = user_spec["provisioning_time_sla"]
-
-            # Defining user's mobility model
-            user.mobility_model = user_spec["mobility_model"]
-
-            # User's trust in each of the infrastructure providers
-            user.providers_trust = user_spec["providers_trust"]
+            user.communication_paths[str(app.id)] = None
+            user.delays[str(app.id)] = None
+            user.delay_slas[str(app.id)] = delay_slas[user.id - 1]
 
             # Defining user's coordinates and connecting him to a base station
-            initial_base_station = BaseStation.find_by_id(users_base_stations[user.id - 1])
-            user._set_initial_position(coordinates=user_spec["base_station"].coordinates, number_of_replicates=60)
-            # user._set_initial_position(coordinates=user_spec["coordinates"](), number_of_replicates=60)
+            user.mobility_model = random_mobility
+            user._set_initial_position(coordinates=random_user_placement(), number_of_replicates=2)
 
             # Defining user's access pattern
-            user_spec["access_pattern"]["model"](
+            CircularDurationAndIntervalAccessPattern(
                 user=user,
                 app=app,
-                start=user_spec["access_pattern"]["start"],
-                duration_values=user_spec["access_pattern"]["duration_values"],
-                interval_values=user_spec["access_pattern"]["interval_values"],
+                start=1,
+                duration_values=[float("inf")],
+                interval_values=[0],
             )
 
-        # Creating the services that compose the application
-        for service_spec in app_spec["services"]:
-            # Gathering information on the service image based on the specified 'name' and 'tag' parameters
-            service_image = next(
-                (img for img in ContainerImage.all() if img.name == service_spec["image"]["name"]),
-                None,
+            # Defining the relationship attributes between the user and the application
+            user.applications.append(app)
+            app.users.append(user)
+
+            # Defining service privacy requirement values
+            service_privacy_requirements = uniform(
+                n_items=app_spec["number_of_services"], valid_values=[0, 1, 2], shuffle_distribution=False
             )
-            if not service_image:
-                raise Exception(f"There is no image with name '{service_spec['image']}' inside the container registries.")
+            service_privacy_requirements = sorted(service_privacy_requirements)
 
-            # Creating the service object
-            service = Service(
-                image_digest=service_image.digest,
-                cpu_demand=service_spec["cpu_demand"],
-                memory_demand=service_spec["memory_demand"],
-                label=service_spec["label"],
-                state=service_spec["state"],
-            )
-            service.privacy_requirement = service_spec["privacy_requirement"]
+            # Creating the services that compose the application
+            for service_index in range(app_spec["number_of_services"]):
+                # Gathering information on the service image based on the specified 'name' and 'tag' parameters
+                service_image = next((img for img in ContainerImage.all() if img.name == "alpine"), None)
 
-            # Connecting the application to its new service
-            app.connect_to_service(service)
+                # Creating the service object
+                service = Service(
+                    image_digest=service_image.digest,
+                    cpu_demand=None,
+                    memory_demand=None,
+                    label="Alpine",
+                    state=0,
+                )
+                service.privacy_requirement = service_privacy_requirements[service_index]
+                service.cpu_demand = service_demands[service.id - 1]["cpu"]
+                service.memory_demand = service_demands[service.id - 1]["memory"]
 
+                # Connecting the application to its new service
+                app.connect_to_service(service)
+
+##########################
+#### DATASET ANALYSIS ####
+##########################
+# Calculating the network delay between users and edge servers (useful for defining reasonable delay SLAs)
+users = []
+for user in User.all():
+    user_metadata = {"object": user, "all_delays": []}
+    edge_servers = []
+    for edge_server in EdgeServer.all():
+        path = nx.shortest_path(
+            G=Topology.first(), source=user.base_station.network_switch, target=edge_server.network_switch, weight="delay"
+        )
+        user_metadata["all_delays"].append(Topology.first().calculate_path_delay(path=path))
+    user_metadata["min_delay"] = min(user_metadata["all_delays"])
+    user_metadata["max_delay"] = max(user_metadata["all_delays"])
+    user_metadata["avg_delay"] = sum(user_metadata["all_delays"]) / len(user_metadata["all_delays"])
+    user_metadata["delays"] = {}
+    for delay in sorted(list(set(user_metadata["all_delays"]))):
+        user_metadata["delays"][delay] = user_metadata["all_delays"].count(delay)
+
+    users.append(user_metadata)
+
+print("\n\n==== NETWORK DISTANCE (DELAY) BETWEEN USERS AND EDGE SERVERS ====")
+for user_metadata in users:
+    user_attrs = {
+        "object": user_metadata["object"],
+        "sla": user_metadata["object"].delay_slas[str(user_metadata["object"].applications[0].id)],
+        "min": user_metadata["min_delay"],
+        "max": user_metadata["max_delay"],
+        "avg": round(user_metadata["avg_delay"]),
+        "delays": user_metadata["delays"],
+    }
+    print(f"{user_attrs}")
+    if user_attrs["min"] > user_attrs["sla"]:
+        print(f"\n\nWARNING: {user_attrs['object']} delay SLA is not achievable!\n\n")
+
+# Calculating the infrastructure occupation and information about the services
+edge_server_cpu_capacity = 0
+edge_server_memory_capacity = 0
+service_cpu_demand = 0
+service_memory_demand = 0
+
+for edge_server in EdgeServer.all():
+    edge_server_cpu_capacity += edge_server.cpu
+    edge_server_memory_capacity += edge_server.memory
+
+for service in Service.all():
+    service_cpu_demand += service.cpu_demand
+    service_memory_demand += service.memory_demand
+
+overall_cpu_occupation = round((service_cpu_demand / edge_server_cpu_capacity) * 100, 1)
+overall_memory_occupation = round((service_memory_demand / edge_server_memory_capacity) * 100, 1)
+
+print("\n\n==== INFRASTRUCTURE OCCUPATION OVERVIEW ====")
+print(f"Edge Servers: {EdgeServer.count()}")
+print(f"\tCPU Capacity: {edge_server_cpu_capacity}")
+print(f"\tRAM Capacity: {edge_server_memory_capacity}")
+print(f"Services: {Service.count()}")
+print(f"\tCPU Demand: {service_cpu_demand}")
+print(f"\t\t[Privacy Requirement = 0] {sum([s.cpu_demand for s in Service.all() if s.privacy_requirement == 0])}")
+print(f"\t\t[Privacy Requirement = 1] {sum([s.cpu_demand for s in Service.all() if s.privacy_requirement == 1])}")
+print(f"\t\t[Privacy Requirement = 2] {sum([s.cpu_demand for s in Service.all() if s.privacy_requirement == 2])}")
+print(f"\tRAM Demand: {service_memory_demand}")
+print(f"\t\t[Privacy Requirement = 0] {sum([s.memory_demand for s in Service.all() if s.privacy_requirement == 0])}")
+print(f"\t\t[Privacy Requirement = 1] {sum([s.memory_demand for s in Service.all() if s.privacy_requirement == 1])}")
+print(f"\t\t[Privacy Requirement = 2] {sum([s.memory_demand for s in Service.all() if s.privacy_requirement == 2])}")
+print(f"Overall Occupation")
+print(f"\tCPU: {overall_cpu_occupation}%")
+print(f"\tRAM: {overall_memory_occupation}%")
+
+# Calculating the occupation of each infrastructure provider
+print("==== INFRASTRUCTURE PROVIDERS OVERVIEW ====")
+for provider_id in range(1, len(provider_specs) + 1):
+    provider_edge_servers = [s for s in EdgeServer.all() if s.infrastructure_provider == provider_id]
+
+    users_with_trust0 = [user for user in User.all() if user.providers_trust[provider_id] == 0]
+    users_with_trust1 = [user for user in User.all() if user.providers_trust[provider_id] == 1]
+    users_with_trust2 = [user for user in User.all() if user.providers_trust[provider_id] == 2]
+
+    demand_trust0 = sum(
+        [sum([s.cpu_demand for s in u.applications[0].services if s.privacy_requirement == 0]) for u in users_with_trust0]
+    )
+    demand_trust1 = sum(
+        [sum([s.cpu_demand for s in u.applications[0].services if s.privacy_requirement == 0]) for u in users_with_trust1]
+    )
+    demand_trust2 = sum(
+        [sum([s.cpu_demand for s in u.applications[0].services if s.privacy_requirement == 0]) for u in users_with_trust2]
+    )
+
+    print(f"=== Provider {provider_id} ===")
+    print(f"Overall CPU: {sum([s.cpu for s in provider_edge_servers])}")
+    print(f"Overall RAM: {sum([s.memory for s in provider_edge_servers])}")
+    print(f"\tUsers with trust 0: {len(users_with_trust0)}. CPU Demand: {demand_trust0}")
+    print(f"\tUsers with trust 1: {len(users_with_trust1)}. CPU Demand: {demand_trust1}")
+    print(f"\tUsers with trust 2: {len(users_with_trust2)}. CPU Demand: {demand_trust2}\n")
 
 # Exporting scenario
+Application._to_dict = application_to_dict
 User._to_dict = user_to_dict
 EdgeServer._to_dict = edge_server_to_dict
 Service._to_dict = service_to_dict
-ComponentManager.export_scenario(save_to_file=True, file_name="sample_dataset1")
-
+ComponentManager.export_scenario(save_to_file=True, file_name="dataset1")
 display_topology(Topology.first())
-
-print("=== EDGE SERVERS ===")
-for s in EdgeServer.all():
-    print(
-        f"    {s}. Cap: [{s.cpu}, {s.memory}, {s.disk}]. Provider: {s.infrastructure_provider}. Power: {s.power_model_parameters}"
-    )
-
-print("")
-
-print("=== USERS ===")
-for u in User.all():
-    print(f"    {u}. SLA: {u.delay_slas[str(u.applications[0].id)]}. Trust: {u.providers_trust}")
-    for a in u.applications:
-        print(f"        {a}")
-        for s in a.services:
-            print(f"            {s}. Dem: [{s.cpu_demand}, {s.memory_demand}]. Priv: {s.privacy_requirement}. Host: {s.server}")
