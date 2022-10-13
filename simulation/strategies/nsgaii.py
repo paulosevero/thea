@@ -136,8 +136,7 @@ def evaluate_placement() -> tuple:
     fitness_values = (
         delay_sla_violations,
         privacy_sla_violations,
-        # sum(watts_per_core) / number_of_used_cpu_cores,
-        (sum(watts_per_core) / number_of_used_cpu_cores) * sum([1 for server in EdgeServer.all() if server.cpu_demand > 0]),
+        sum(watts_per_core) / number_of_used_cpu_cores,
     )
     penalties = overloaded_edge_servers
 
