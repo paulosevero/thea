@@ -127,22 +127,66 @@ def topology_collect(self) -> dict:
                         privacy_violations_per_delay_sla[delay_sla] = 0
                     privacy_violations_per_delay_sla[delay_sla] += 1
 
+    data = {}
+    data["provider"] = []
+    for provider_id in set([server.infrastructure_provider for server in EdgeServer.all()]):
+        data["provider"].append({
+            "provider": provider_id,
+            "occupation": occupation_per_provider[provider_id],
+            "active_servers": active_servers_per_infrastructure_provider[provider_id],
+        })
+
+    data["model"] = []
+    for model_name in set([server.model_name for server in EdgeServer.all()]):
+        data["model"].append({
+            "model_name": model_name,
+            "occupation": occupation_per_model[model_name],
+            "power_consumption": sum(power_consumption_per_server_model[model_name]),
+            "active_servers": active_servers_per_model[model_name],
+        })
+    
+    data["chain_size"] = []
+    for chain_size in set([len(app.services) for app in Application.all()]):
+        data["chain_size"].append({
+            "chain_size": chain_size,
+            "delay_sla_violations": delay_sla_violations_per_application_chain_size.get(chain_size, None),
+            "privacy_sla_violations": privacy_sla_violations_per_application_chain_size.get(chain_size, None),
+        })
+
+    data["delay_sla"] = []
+    for delay_sla in set([user.delay_slas[str(app.id)] for user in User.all() for app in user.applications]):
+        data["delay_sla"].append({
+            "delay_sla": delay_sla,
+            "delay_sla_violations": delay_violations_per_delay_sla.get(delay_sla, None),
+            "privacy_sla_violations": privacy_violations_per_delay_sla.get(delay_sla, None),
+        })
+
+    data["privacy_requirement"] = []
+    for privacy_requirement in set([service.privacy_requirement for service in Service.all()]):
+        data["privacy_requirement"].append({
+            "privacy_requirement": privacy_requirement,
+            "privacy_sla_violations": privacy_violations_per_service_privacy_requirement.get(privacy_requirement, None),
+        })
+
     metrics = {
         "overall_occupation": overall_occupation,
-        "occupation_per_provider": occupation_per_provider,
-        "occupation_per_model": occupation_per_model,
+        # "occupation_per_provider": occupation_per_provider,
+        # "occupation_per_model": occupation_per_model,
         "overall_power_consumption": overall_power_consumption,
-        "power_consumption_per_server_model": power_consumption_per_server_model,
-        "active_servers_per_infrastructure_provider": active_servers_per_infrastructure_provider,
-        "active_servers_per_model": active_servers_per_model,
+        # "power_consumption_per_server_model": power_consumption_per_server_model,
+        # "active_servers_per_infrastructure_provider": active_servers_per_infrastructure_provider,
+        # "active_servers_per_model": active_servers_per_model,
         "delay_sla_violations": delay_sla_violations,
         "privacy_sla_violations": privacy_sla_violations,
-        "delay_sla_violations_per_application_chain_size": delay_sla_violations_per_application_chain_size,
-        "delay_violations_per_delay_sla": delay_violations_per_delay_sla,
-        "privacy_violations_per_delay_sla": privacy_violations_per_delay_sla,
-        "privacy_violations_per_service_privacy_requirement": privacy_violations_per_service_privacy_requirement,
-        "privacy_sla_violations_per_application_chain_size": privacy_sla_violations_per_application_chain_size,
+        # "delay_sla_violations_per_application_chain_size": delay_sla_violations_per_application_chain_size,
+        # "delay_violations_per_delay_sla": delay_violations_per_delay_sla,
+        # "privacy_violations_per_delay_sla": privacy_violations_per_delay_sla,
+        # "privacy_violations_per_service_privacy_requirement": privacy_violations_per_service_privacy_requirement,
+        # "privacy_sla_violations_per_application_chain_size": privacy_sla_violations_per_application_chain_size,
+        # "data": data,
+        **data
     }
+
     return metrics
 
 
