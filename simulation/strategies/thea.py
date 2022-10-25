@@ -23,15 +23,15 @@ def get_application_delay_score(app: object):
 
     # Gathering the list of hosts close enough to the user that could be used to host the services without violating the delay SLA
     edge_servers_that_dont_violate_delay_sla = [
-        edge_server
+        1
         for edge_server in EdgeServer.all()
         if calculate_path_delay(origin_network_switch=user_switch, target_network_switch=edge_server.network_switch) <= delay_sla
     ]
 
-    if EdgeServer.count() - len(edge_servers_that_dont_violate_delay_sla) == 0:
+    if sum(edge_servers_that_dont_violate_delay_sla) == 0:
         delay_score = 0
     else:
-        delay_score = ((EdgeServer.count() - len(edge_servers_that_dont_violate_delay_sla)) * delay_sla) ** (1 / 2)
+        delay_score = 1 / ((len(edge_servers_that_dont_violate_delay_sla) * delay_sla) ** (1 / 2))
 
     return delay_score
 
@@ -86,16 +86,21 @@ def thea(parameters: dict = {}):
     while sum(1 for app in Application.all() if app.provisioned == False) > 0:
         apps = []
         for app in [app for app in Application.all() if app.provisioned == False]:
+
+            delay_score = get_application_delay_score(app=app) * len(app.services)
+            privacy_score = sum(
+                [
+                    normalize_cpu_and_memory(cpu=service.cpu_demand, memory=service.memory_demand) * service.privacy_requirement
+                    for service in app.services
+                ]
+            )
+
             app_attrs = {
                 "object": app,
-                "services": len(app.services),
-                "demand": sum(
-                    normalize_cpu_and_memory(cpu=service.cpu_demand, memory=service.memory_demand) for service in app.services
-                ),
-                "delay_score": get_application_delay_score(app=app),
-                "privacy_score": sum(
-                    get_service_privacy_complexity_score(user=app.users[0], service=service) for service in app.services
-                ),
+                "number_of_services": len(app.services),
+                "delay_sla": app.users[0].delay_slas[str(app.id)],
+                "delay_score": delay_score,
+                "privacy_score": privacy_score,
             }
             apps.append(app_attrs)
 
@@ -122,9 +127,9 @@ def thea(parameters: dict = {}):
                 edge_servers,
                 key=lambda s: (
                     s["sla_violations"],
-                    get_norm(metadata=s, attr_name="delay_cost", min=minimum, max=maximum)
+                    get_norm(metadata=s, attr_name="affected_services_cost", min=minimum, max=maximum)
                     + get_norm(metadata=s, attr_name="power_consumption", min=minimum, max=maximum)
-                    + get_norm(metadata=s, attr_name="affected_services_cost", min=minimum, max=maximum),
+                    + get_norm(metadata=s, attr_name="delay_cost", min=minimum, max=maximum),
                 ),
             )
 
@@ -196,10 +201,9 @@ def get_host_candidates(user: object, service: object) -> list:
             {
                 "object": edge_server,
                 "sla_violations": sla_violations,
-                "delay_cost": delay_cost,
-                "additional_delay": additional_delay,
-                "power_consumption": power_consumption,
                 "affected_services_cost": affected_services_cost,
+                "power_consumption": power_consumption,
+                "delay_cost": delay_cost,
             }
         )
 

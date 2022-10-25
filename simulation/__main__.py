@@ -229,6 +229,11 @@ def main(seed_value: int, algorithm: str, dataset: str, parameters: dict = {}):
     Topology.collect = topology_collect
     simulator.run_model()
 
+    metrics = Topology.first().collect()
+    print(f"==== {algorithm} ====")
+    for metric, value in metrics.items():
+        print(f"{metric}: {value}")
+
 
 if __name__ == "__main__":
     # Parsing named arguments from the command line

@@ -99,7 +99,7 @@
                 "edge_servers": [
                     {
                         "class": "EdgeServer",
-                        "id": 3
+                        "id": 5
                     }
                 ],
                 "links": [],
@@ -179,7 +179,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 6
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -205,12 +210,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 12
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -236,12 +236,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 8
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -267,7 +262,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 8
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -293,7 +293,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 7
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -345,12 +350,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 14
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -379,7 +379,7 @@
                 "edge_servers": [
                     {
                         "class": "EdgeServer",
-                        "id": 15
+                        "id": 2
                     }
                 ],
                 "links": [],
@@ -459,7 +459,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 15
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -511,12 +516,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 10
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -646,7 +646,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 3
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -724,12 +729,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 18
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -781,12 +781,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 1
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -838,7 +833,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 10
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -864,12 +864,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 11
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -921,7 +916,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 17
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1051,7 +1051,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 14
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1129,12 +1134,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 9
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1186,12 +1186,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 6
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1217,7 +1212,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 18
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1243,7 +1243,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 12
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1295,12 +1300,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 13
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1352,12 +1352,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 17
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1383,12 +1378,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 16
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1440,12 +1430,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 4
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1601,12 +1586,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 7
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1632,7 +1612,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 13
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1710,7 +1695,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 1
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1736,7 +1726,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 4
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1788,7 +1783,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 9
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1840,7 +1840,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 11
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1866,12 +1871,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 2
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -1897,7 +1897,12 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 16
+                    }
+                ],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -2105,12 +2110,7 @@
             },
             "relationships": {
                 "power_model": "ConteratoNetworkPowerModel",
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 5
-                    }
-                ],
+                "edge_servers": [],
                 "links": [],
                 "base_station": {
                     "class": "BaseStation",
@@ -7884,7 +7884,7 @@
                 "edge_servers": [
                     {
                         "class": "EdgeServer",
-                        "id": 3
+                        "id": 5
                     }
                 ],
                 "network_switch": {
@@ -7921,7 +7921,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 15
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -7940,7 +7945,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 6
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 7
@@ -7958,12 +7968,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 12
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 8
@@ -7981,12 +7986,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 8
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 9
@@ -8003,8 +8003,18 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
-                "edge_servers": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 5
+                    }
+                ],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 8
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 10
@@ -8024,10 +8034,15 @@
                 "users": [
                     {
                         "class": "User",
-                        "id": 1
+                        "id": 11
                     }
                 ],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 7
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 11
@@ -8063,12 +8078,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 14
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 13
@@ -8085,16 +8095,11 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 11
-                    }
-                ],
+                "users": [],
                 "edge_servers": [
                     {
                         "class": "EdgeServer",
-                        "id": 15
+                        "id": 2
                     }
                 ],
                 "network_switch": {
@@ -8113,7 +8118,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 13
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -8150,7 +8160,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 15
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 17
@@ -8185,13 +8200,13 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
-                "edge_servers": [
+                "users": [
                     {
-                        "class": "EdgeServer",
-                        "id": 10
+                        "class": "User",
+                        "id": 6
                     }
                 ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 19
@@ -8244,12 +8259,7 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 2
-                    }
-                ],
+                "users": [],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -8286,7 +8296,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 3
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 24
@@ -8340,12 +8355,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 18
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 27
@@ -8380,13 +8390,13 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
-                "edge_servers": [
+                "users": [
                     {
-                        "class": "EdgeServer",
-                        "id": 1
+                        "class": "User",
+                        "id": 10
                     }
                 ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 29
@@ -8422,7 +8432,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 10
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 31
@@ -8440,12 +8455,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 11
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 32
@@ -8462,12 +8472,7 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 5
-                    }
-                ],
+                "users": [],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -8486,7 +8491,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 17
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 34
@@ -8503,12 +8513,7 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 3
-                    }
-                ],
+                "users": [],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -8526,7 +8531,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 14
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -8565,7 +8575,7 @@
                 "users": [
                     {
                         "class": "User",
-                        "id": 8
+                        "id": 12
                     }
                 ],
                 "edge_servers": [],
@@ -8586,7 +8596,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 14
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 39
@@ -8642,15 +8657,10 @@
                 "users": [
                     {
                         "class": "User",
-                        "id": 12
+                        "id": 4
                     }
                 ],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 9
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 42
@@ -8691,12 +8701,7 @@
                         "id": 7
                     }
                 ],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 6
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 44
@@ -8714,7 +8719,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 18
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 45
@@ -8732,7 +8742,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 12
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 46
@@ -8767,18 +8782,8 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 6
-                    }
-                ],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 13
-                    }
-                ],
+                "users": [],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 48
@@ -8814,12 +8819,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 17
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 50
@@ -8837,12 +8837,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 16
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 51
@@ -8878,12 +8873,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 4
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 53
@@ -8991,12 +8981,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 7
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 59
@@ -9014,7 +8999,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 13
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 60
@@ -9070,10 +9060,15 @@
                 "users": [
                     {
                         "class": "User",
-                        "id": 9
+                        "id": 2
                     }
                 ],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 1
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 63
@@ -9091,7 +9086,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 4
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 64
@@ -9127,7 +9127,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 9
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 66
@@ -9163,7 +9168,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 11
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 68
@@ -9181,12 +9191,7 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [
-                    {
-                        "class": "EdgeServer",
-                        "id": 2
-                    }
-                ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 69
@@ -9204,7 +9209,12 @@
             },
             "relationships": {
                 "users": [],
-                "edge_servers": [],
+                "edge_servers": [
+                    {
+                        "class": "EdgeServer",
+                        "id": 16
+                    }
+                ],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 70
@@ -9275,7 +9285,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 9
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -9296,7 +9311,7 @@
                 "users": [
                     {
                         "class": "User",
-                        "id": 10
+                        "id": 3
                     }
                 ],
                 "edge_servers": [],
@@ -9316,7 +9331,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 8
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -9334,12 +9354,7 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [
-                    {
-                        "class": "User",
-                        "id": 4
-                    }
-                ],
+                "users": [],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -9357,13 +9372,13 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
-                "edge_servers": [
+                "users": [
                     {
-                        "class": "EdgeServer",
-                        "id": 5
+                        "class": "User",
+                        "id": 1
                     }
                 ],
+                "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
                     "id": 78
@@ -9380,7 +9395,12 @@
                 "wireless_delay": 0
             },
             "relationships": {
-                "users": [],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 16
+                    }
+                ],
                 "edge_servers": [],
                 "network_switch": {
                     "class": "NetworkSwitch",
@@ -9430,21 +9450,21 @@
             "attributes": {
                 "id": 1,
                 "coordinates": [
-                    3,
-                    1
+                    10,
+                    8
                 ],
                 "coordinates_trace": [
                     [
-                        3,
-                        1
+                        10,
+                        8
                     ],
                     [
-                        3,
-                        1
+                        10,
+                        8
                     ],
                     [
-                        3,
-                        1
+                        10,
+                        8
                     ]
                 ],
                 "delays": {
@@ -9483,7 +9503,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 11
+                    "id": 78
                 }
             }
         },
@@ -9491,28 +9511,28 @@
             "attributes": {
                 "id": 2,
                 "coordinates": [
-                    6,
-                    2
+                    16,
+                    6
                 ],
                 "coordinates_trace": [
                     [
-                        6,
-                        2
+                        16,
+                        6
                     ],
                     [
-                        6,
-                        2
+                        16,
+                        6
                     ],
                     [
-                        6,
-                        2
+                        16,
+                        6
                     ]
                 ],
                 "delays": {
                     "2": null
                 },
                 "delay_slas": {
-                    "2": 3
+                    "2": 6
                 },
                 "communication_paths": {
                     "2": null
@@ -9544,7 +9564,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 22
+                    "id": 63
                 }
             }
         },
@@ -9552,28 +9572,28 @@
             "attributes": {
                 "id": 3,
                 "coordinates": [
-                    15,
-                    3
+                    4,
+                    8
                 ],
                 "coordinates_trace": [
                     [
-                        15,
-                        3
+                        4,
+                        8
                     ],
                     [
-                        15,
-                        3
+                        4,
+                        8
                     ],
                     [
-                        15,
-                        3
+                        4,
+                        8
                     ]
                 ],
                 "delays": {
                     "3": null
                 },
                 "delay_slas": {
-                    "3": 6
+                    "3": 3
                 },
                 "communication_paths": {
                     "3": null
@@ -9605,7 +9625,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 35
+                    "id": 75
                 }
             }
         },
@@ -9613,21 +9633,21 @@
             "attributes": {
                 "id": 4,
                 "coordinates": [
-                    8,
-                    8
+                    10,
+                    4
                 ],
                 "coordinates_trace": [
                     [
-                        8,
-                        8
+                        10,
+                        4
                     ],
                     [
-                        8,
-                        8
+                        10,
+                        4
                     ],
                     [
-                        8,
-                        8
+                        10,
+                        4
                     ]
                 ],
                 "delays": {
@@ -9666,7 +9686,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 77
+                    "id": 42
                 }
             }
         },
@@ -9674,21 +9694,21 @@
             "attributes": {
                 "id": 5,
                 "coordinates": [
-                    11,
-                    3
+                    1,
+                    1
                 ],
                 "coordinates_trace": [
                     [
-                        11,
-                        3
+                        1,
+                        1
                     ],
                     [
-                        11,
-                        3
+                        1,
+                        1
                     ],
                     [
-                        11,
-                        3
+                        1,
+                        1
                     ]
                 ],
                 "delays": {
@@ -9727,7 +9747,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 33
+                    "id": 10
                 }
             }
         },
@@ -9735,28 +9755,28 @@
             "attributes": {
                 "id": 6,
                 "coordinates": [
-                    5,
-                    5
+                    0,
+                    2
                 ],
                 "coordinates_trace": [
                     [
-                        5,
-                        5
+                        0,
+                        2
                     ],
                     [
-                        5,
-                        5
+                        0,
+                        2
                     ],
                     [
-                        5,
-                        5
+                        0,
+                        2
                     ]
                 ],
                 "delays": {
                     "6": null
                 },
                 "delay_slas": {
-                    "6": 6
+                    "6": 3
                 },
                 "communication_paths": {
                     "6": null
@@ -9788,7 +9808,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 48
+                    "id": 19
                 }
             }
         },
@@ -9828,8 +9848,8 @@
                     }
                 },
                 "providers_trust": {
-                    "1": 1,
-                    "2": 2,
+                    "1": 2,
+                    "2": 1,
                     "3": 0
                 }
             },
@@ -9857,28 +9877,28 @@
             "attributes": {
                 "id": 8,
                 "coordinates": [
-                    2,
-                    4
+                    6,
+                    8
                 ],
                 "coordinates_trace": [
                     [
-                        2,
-                        4
+                        6,
+                        8
                     ],
                     [
-                        2,
-                        4
+                        6,
+                        8
                     ],
                     [
-                        2,
-                        4
+                        6,
+                        8
                     ]
                 ],
                 "delays": {
                     "8": null
                 },
                 "delay_slas": {
-                    "8": 3
+                    "8": 6
                 },
                 "communication_paths": {
                     "8": null
@@ -9889,8 +9909,8 @@
                     }
                 },
                 "providers_trust": {
-                    "1": 1,
-                    "2": 2,
+                    "1": 2,
+                    "2": 1,
                     "3": 0
                 }
             },
@@ -9910,7 +9930,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 38
+                    "id": 76
                 }
             }
         },
@@ -9918,21 +9938,21 @@
             "attributes": {
                 "id": 9,
                 "coordinates": [
-                    16,
-                    6
+                    2,
+                    8
                 ],
                 "coordinates_trace": [
                     [
-                        16,
-                        6
+                        2,
+                        8
                     ],
                     [
-                        16,
-                        6
+                        2,
+                        8
                     ],
                     [
-                        16,
-                        6
+                        2,
+                        8
                     ]
                 ],
                 "delays": {
@@ -9971,7 +9991,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 63
+                    "id": 74
                 }
             }
         },
@@ -9979,28 +9999,28 @@
             "attributes": {
                 "id": 10,
                 "coordinates": [
-                    4,
-                    8
+                    3,
+                    3
                 ],
                 "coordinates_trace": [
                     [
-                        4,
-                        8
+                        3,
+                        3
                     ],
                     [
-                        4,
-                        8
+                        3,
+                        3
                     ],
                     [
-                        4,
-                        8
+                        3,
+                        3
                     ]
                 ],
                 "delays": {
                     "10": null
                 },
                 "delay_slas": {
-                    "10": 3
+                    "10": 6
                 },
                 "communication_paths": {
                     "10": null
@@ -10032,7 +10052,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 75
+                    "id": 29
                 }
             }
         },
@@ -10040,20 +10060,20 @@
             "attributes": {
                 "id": 11,
                 "coordinates": [
-                    9,
+                    3,
                     1
                 ],
                 "coordinates_trace": [
                     [
-                        9,
+                        3,
                         1
                     ],
                     [
-                        9,
+                        3,
                         1
                     ],
                     [
-                        9,
+                        3,
                         1
                     ]
                 ],
@@ -10061,7 +10081,7 @@
                     "11": null
                 },
                 "delay_slas": {
-                    "11": 6
+                    "11": 3
                 },
                 "communication_paths": {
                     "11": null
@@ -10093,7 +10113,7 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 14
+                    "id": 11
                 }
             }
         },
@@ -10101,20 +10121,20 @@
             "attributes": {
                 "id": 12,
                 "coordinates": [
-                    10,
+                    2,
                     4
                 ],
                 "coordinates_trace": [
                     [
-                        10,
+                        2,
                         4
                     ],
                     [
-                        10,
+                        2,
                         4
                     ],
                     [
-                        10,
+                        2,
                         4
                     ]
                 ],
@@ -10154,7 +10174,251 @@
                 ],
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 42
+                    "id": 38
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 13,
+                "coordinates": [
+                    11,
+                    1
+                ],
+                "coordinates_trace": [
+                    [
+                        11,
+                        1
+                    ],
+                    [
+                        11,
+                        1
+                    ],
+                    [
+                        11,
+                        1
+                    ]
+                ],
+                "delays": {
+                    "13": null
+                },
+                "delay_slas": {
+                    "13": 3
+                },
+                "communication_paths": {
+                    "13": null
+                },
+                "making_requests": {
+                    "13": {
+                        "1": true
+                    }
+                },
+                "providers_trust": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 0
+                }
+            },
+            "relationships": {
+                "access_patterns": {
+                    "13": {
+                        "class": "CircularDurationAndIntervalAccessPattern",
+                        "id": 13
+                    }
+                },
+                "mobility_model": "random_mobility",
+                "applications": [
+                    {
+                        "class": "Application",
+                        "id": 13
+                    }
+                ],
+                "base_station": {
+                    "class": "BaseStation",
+                    "id": 15
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 14,
+                "coordinates": [
+                    17,
+                    3
+                ],
+                "coordinates_trace": [
+                    [
+                        17,
+                        3
+                    ],
+                    [
+                        17,
+                        3
+                    ],
+                    [
+                        17,
+                        3
+                    ]
+                ],
+                "delays": {
+                    "14": null
+                },
+                "delay_slas": {
+                    "14": 3
+                },
+                "communication_paths": {
+                    "14": null
+                },
+                "making_requests": {
+                    "14": {
+                        "1": true
+                    }
+                },
+                "providers_trust": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 0
+                }
+            },
+            "relationships": {
+                "access_patterns": {
+                    "14": {
+                        "class": "CircularDurationAndIntervalAccessPattern",
+                        "id": 14
+                    }
+                },
+                "mobility_model": "random_mobility",
+                "applications": [
+                    {
+                        "class": "Application",
+                        "id": 14
+                    }
+                ],
+                "base_station": {
+                    "class": "BaseStation",
+                    "id": 36
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 15,
+                "coordinates": [
+                    10,
+                    0
+                ],
+                "coordinates_trace": [
+                    [
+                        10,
+                        0
+                    ],
+                    [
+                        10,
+                        0
+                    ],
+                    [
+                        10,
+                        0
+                    ]
+                ],
+                "delays": {
+                    "15": null
+                },
+                "delay_slas": {
+                    "15": 6
+                },
+                "communication_paths": {
+                    "15": null
+                },
+                "making_requests": {
+                    "15": {
+                        "1": true
+                    }
+                },
+                "providers_trust": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 0
+                }
+            },
+            "relationships": {
+                "access_patterns": {
+                    "15": {
+                        "class": "CircularDurationAndIntervalAccessPattern",
+                        "id": 15
+                    }
+                },
+                "mobility_model": "random_mobility",
+                "applications": [
+                    {
+                        "class": "Application",
+                        "id": 15
+                    }
+                ],
+                "base_station": {
+                    "class": "BaseStation",
+                    "id": 6
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 16,
+                "coordinates": [
+                    12,
+                    8
+                ],
+                "coordinates_trace": [
+                    [
+                        12,
+                        8
+                    ],
+                    [
+                        12,
+                        8
+                    ],
+                    [
+                        12,
+                        8
+                    ]
+                ],
+                "delays": {
+                    "16": null
+                },
+                "delay_slas": {
+                    "16": 6
+                },
+                "communication_paths": {
+                    "16": null
+                },
+                "making_requests": {
+                    "16": {
+                        "1": true
+                    }
+                },
+                "providers_trust": {
+                    "1": 1,
+                    "2": 2,
+                    "3": 0
+                }
+            },
+            "relationships": {
+                "access_patterns": {
+                    "16": {
+                        "class": "CircularDurationAndIntervalAccessPattern",
+                        "id": 16
+                    }
+                },
+                "mobility_model": "random_mobility",
+                "applications": [
+                    {
+                        "class": "Application",
+                        "id": 16
+                    }
+                ],
+                "base_station": {
+                    "class": "BaseStation",
+                    "id": 79
                 }
             }
         }
@@ -10235,10 +10499,10 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
@@ -10254,25 +10518,6 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 1
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 3,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
                 "cpu_demand": 16,
                 "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
@@ -10288,31 +10533,12 @@
         },
         {
             "attributes": {
-                "id": 4,
+                "id": 3,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
                 "cpu_demand": 4,
                 "memory_demand": 4096,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 2
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 5,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 0
             },
@@ -10326,14 +10552,14 @@
         },
         {
             "attributes": {
-                "id": 6,
+                "id": 4,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
@@ -10345,19 +10571,57 @@
         },
         {
             "attributes": {
-                "id": 7,
+                "id": 5,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 4
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 6,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 3
+                    "id": 4
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 7,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 5
                 },
                 "server": null
             }
@@ -10371,102 +10635,7 @@
                 "cpu_demand": 2,
                 "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 3
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 9,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 4
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 10,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 1
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 4
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 11,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 4
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 12,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 4
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 13,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
@@ -10478,7 +10647,64 @@
         },
         {
             "attributes": {
-                "id": 14,
+                "id": 9,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 5
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 10,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 5
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 11,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 6
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 12,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
@@ -10490,7 +10716,45 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 5
+                    "id": 6
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 13,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 6
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 14,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 6
                 },
                 "server": null
             }
@@ -10504,12 +10768,12 @@
                 "cpu_demand": 8,
                 "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 5
+                    "id": 7
                 },
                 "server": null
             }
@@ -10523,12 +10787,12 @@
                 "cpu_demand": 4,
                 "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 5
+                    "id": 7
                 },
                 "server": null
             }
@@ -10542,12 +10806,12 @@
                 "cpu_demand": 16,
                 "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 5
+                    "id": 7
                 },
                 "server": null
             }
@@ -10558,15 +10822,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 5
+                    "id": 7
                 },
                 "server": null
             }
@@ -10580,12 +10844,12 @@
                 "cpu_demand": 2,
                 "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 6
+                    "id": 7
                 },
                 "server": null
             }
@@ -10596,15 +10860,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 6
+                    "id": 7
                 },
                 "server": null
             }
@@ -10615,15 +10879,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 6
+                    "id": 7
                 },
                 "server": null
             }
@@ -10634,15 +10898,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 6
+                    "id": 7
                 },
                 "server": null
             }
@@ -10653,15 +10917,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 6
+                    "id": 8
                 },
                 "server": null
             }
@@ -10669,25 +10933,6 @@
         {
             "attributes": {
                 "id": 24,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 6
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 25,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
@@ -10699,7 +10944,26 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 7
+                    "id": 8
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 25,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 8
                 },
                 "server": null
             }
@@ -10718,7 +10982,7 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 7
+                    "id": 8
                 },
                 "server": null
             }
@@ -10732,7 +10996,7 @@
                 "cpu_demand": 4,
                 "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
@@ -10748,10 +11012,10 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
@@ -10767,15 +11031,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 9
+                    "id": 8
                 },
                 "server": null
             }
@@ -10786,15 +11050,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 9
+                    "id": 8
                 },
                 "server": null
             }
@@ -10805,10 +11069,10 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
@@ -10824,15 +11088,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 9
+                    "id": 10
                 },
                 "server": null
             }
@@ -10843,15 +11107,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 10
+                    "id": 11
                 },
                 "server": null
             }
@@ -10862,15 +11126,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 10
+                    "id": 11
                 },
                 "server": null
             }
@@ -10889,7 +11153,7 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 10
+                    "id": 12
                 },
                 "server": null
             }
@@ -10908,7 +11172,7 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 10
+                    "id": 12
                 },
                 "server": null
             }
@@ -10919,15 +11183,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 11
+                    "id": 13
                 },
                 "server": null
             }
@@ -10941,12 +11205,12 @@
                 "cpu_demand": 16,
                 "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 11
+                    "id": 13
                 },
                 "server": null
             }
@@ -10957,15 +11221,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 4,
-                "memory_demand": 4096,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
                 "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 11
+                    "id": 13
                 },
                 "server": null
             }
@@ -10973,25 +11237,6 @@
         {
             "attributes": {
                 "id": 40,
-                "label": "Alpine",
-                "state": 0,
-                "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
-                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
-            },
-            "relationships": {
-                "application": {
-                    "class": "Application",
-                    "id": 11
-                },
-                "server": null
-            }
-        },
-        {
-            "attributes": {
-                "id": 41,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
@@ -11003,7 +11248,26 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 11
+                    "id": 13
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 41,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 14
                 },
                 "server": null
             }
@@ -11017,12 +11281,12 @@
                 "cpu_demand": 4,
                 "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 11
+                    "id": 14
                 },
                 "server": null
             }
@@ -11033,15 +11297,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 8,
-                "memory_demand": 8192,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 1
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 14
                 },
                 "server": null
             }
@@ -11052,15 +11316,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 2,
-                "memory_demand": 2048,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 0
+                "privacy_requirement": 2
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 14
                 },
                 "server": null
             }
@@ -11074,12 +11338,12 @@
                 "cpu_demand": 8,
                 "memory_demand": 8192,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 15
                 },
                 "server": null
             }
@@ -11090,15 +11354,15 @@
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
-                "cpu_demand": 16,
-                "memory_demand": 16384,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 1
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 15
                 },
                 "server": null
             }
@@ -11112,12 +11376,12 @@
                 "cpu_demand": 16,
                 "memory_demand": 16384,
                 "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
-                "privacy_requirement": 2
+                "privacy_requirement": 0
             },
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 15
                 },
                 "server": null
             }
@@ -11125,6 +11389,215 @@
         {
             "attributes": {
                 "id": 48,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 15
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 49,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 15
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 50,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 15
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 51,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 16,
+                "memory_demand": 16384,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 15
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 52,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 15
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 53,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 54,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 55,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 8,
+                "memory_demand": 8192,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 0
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 56,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 57,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 2,
+                "memory_demand": 2048,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 1
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 58,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 59,
                 "label": "Alpine",
                 "state": 0,
                 "_available": true,
@@ -11136,7 +11609,26 @@
             "relationships": {
                 "application": {
                     "class": "Application",
-                    "id": 12
+                    "id": 16
+                },
+                "server": null
+            }
+        },
+        {
+            "attributes": {
+                "id": 60,
+                "label": "Alpine",
+                "state": 0,
+                "_available": true,
+                "cpu_demand": 4,
+                "memory_demand": 4096,
+                "image_digest": "sha256:a777c9c66ba177ccfea23f2a216ff6721e78a662cd17019488c417135299cd89",
+                "privacy_requirement": 2
+            },
+            "relationships": {
+                "application": {
+                    "class": "Application",
+                    "id": 16
                 },
                 "server": null
             }
@@ -11169,10 +11661,6 @@
                     {
                         "class": "Service",
                         "id": 1
-                    },
-                    {
-                        "class": "Service",
-                        "id": 2
                     }
                 ],
                 "users": [
@@ -11193,11 +11681,7 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 3
-                    },
-                    {
-                        "class": "Service",
-                        "id": 4
+                        "id": 2
                     }
                 ],
                 "users": [
@@ -11218,19 +11702,11 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 5
+                        "id": 3
                     },
                     {
                         "class": "Service",
-                        "id": 6
-                    },
-                    {
-                        "class": "Service",
-                        "id": 7
-                    },
-                    {
-                        "class": "Service",
-                        "id": 8
+                        "id": 4
                     }
                 ],
                 "users": [
@@ -11251,19 +11727,11 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 9
+                        "id": 5
                     },
                     {
                         "class": "Service",
-                        "id": 10
-                    },
-                    {
-                        "class": "Service",
-                        "id": 11
-                    },
-                    {
-                        "class": "Service",
-                        "id": 12
+                        "id": 6
                     }
                 ],
                 "users": [
@@ -11284,27 +11752,19 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 13
+                        "id": 7
                     },
                     {
                         "class": "Service",
-                        "id": 14
+                        "id": 8
                     },
                     {
                         "class": "Service",
-                        "id": 15
+                        "id": 9
                     },
                     {
                         "class": "Service",
-                        "id": 16
-                    },
-                    {
-                        "class": "Service",
-                        "id": 17
-                    },
-                    {
-                        "class": "Service",
-                        "id": 18
+                        "id": 10
                     }
                 ],
                 "users": [
@@ -11325,27 +11785,19 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 19
+                        "id": 11
                     },
                     {
                         "class": "Service",
-                        "id": 20
+                        "id": 12
                     },
                     {
                         "class": "Service",
-                        "id": 21
+                        "id": 13
                     },
                     {
                         "class": "Service",
-                        "id": 22
-                    },
-                    {
-                        "class": "Service",
-                        "id": 23
-                    },
-                    {
-                        "class": "Service",
-                        "id": 24
+                        "id": 14
                     }
                 ],
                 "users": [
@@ -11366,11 +11818,35 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 25
+                        "id": 15
                     },
                     {
                         "class": "Service",
-                        "id": 26
+                        "id": 16
+                    },
+                    {
+                        "class": "Service",
+                        "id": 17
+                    },
+                    {
+                        "class": "Service",
+                        "id": 18
+                    },
+                    {
+                        "class": "Service",
+                        "id": 19
+                    },
+                    {
+                        "class": "Service",
+                        "id": 20
+                    },
+                    {
+                        "class": "Service",
+                        "id": 21
+                    },
+                    {
+                        "class": "Service",
+                        "id": 22
                     }
                 ],
                 "users": [
@@ -11391,11 +11867,35 @@
                 "services": [
                     {
                         "class": "Service",
+                        "id": 23
+                    },
+                    {
+                        "class": "Service",
+                        "id": 24
+                    },
+                    {
+                        "class": "Service",
+                        "id": 25
+                    },
+                    {
+                        "class": "Service",
+                        "id": 26
+                    },
+                    {
+                        "class": "Service",
                         "id": 27
                     },
                     {
                         "class": "Service",
                         "id": 28
+                    },
+                    {
+                        "class": "Service",
+                        "id": 29
+                    },
+                    {
+                        "class": "Service",
+                        "id": 30
                     }
                 ],
                 "users": [
@@ -11416,19 +11916,7 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 29
-                    },
-                    {
-                        "class": "Service",
-                        "id": 30
-                    },
-                    {
-                        "class": "Service",
                         "id": 31
-                    },
-                    {
-                        "class": "Service",
-                        "id": 32
                     }
                 ],
                 "users": [
@@ -11449,19 +11937,7 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 33
-                    },
-                    {
-                        "class": "Service",
-                        "id": 34
-                    },
-                    {
-                        "class": "Service",
-                        "id": 35
-                    },
-                    {
-                        "class": "Service",
-                        "id": 36
+                        "id": 32
                     }
                 ],
                 "users": [
@@ -11482,27 +11958,11 @@
                 "services": [
                     {
                         "class": "Service",
-                        "id": 37
+                        "id": 33
                     },
                     {
                         "class": "Service",
-                        "id": 38
-                    },
-                    {
-                        "class": "Service",
-                        "id": 39
-                    },
-                    {
-                        "class": "Service",
-                        "id": 40
-                    },
-                    {
-                        "class": "Service",
-                        "id": 41
-                    },
-                    {
-                        "class": "Service",
-                        "id": 42
+                        "id": 34
                     }
                 ],
                 "users": [
@@ -11523,12 +11983,95 @@
                 "services": [
                     {
                         "class": "Service",
+                        "id": 35
+                    },
+                    {
+                        "class": "Service",
+                        "id": 36
+                    }
+                ],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 12
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "id": 13,
+                "label": "",
+                "provisioned": false
+            },
+            "relationships": {
+                "services": [
+                    {
+                        "class": "Service",
+                        "id": 37
+                    },
+                    {
+                        "class": "Service",
+                        "id": 38
+                    },
+                    {
+                        "class": "Service",
+                        "id": 39
+                    },
+                    {
+                        "class": "Service",
+                        "id": 40
+                    }
+                ],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 13
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "id": 14,
+                "label": "",
+                "provisioned": false
+            },
+            "relationships": {
+                "services": [
+                    {
+                        "class": "Service",
+                        "id": 41
+                    },
+                    {
+                        "class": "Service",
+                        "id": 42
+                    },
+                    {
+                        "class": "Service",
                         "id": 43
                     },
                     {
                         "class": "Service",
                         "id": 44
-                    },
+                    }
+                ],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 14
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "id": 15,
+                "label": "",
+                "provisioned": false
+            },
+            "relationships": {
+                "services": [
                     {
                         "class": "Service",
                         "id": 45
@@ -11544,12 +12087,77 @@
                     {
                         "class": "Service",
                         "id": 48
+                    },
+                    {
+                        "class": "Service",
+                        "id": 49
+                    },
+                    {
+                        "class": "Service",
+                        "id": 50
+                    },
+                    {
+                        "class": "Service",
+                        "id": 51
+                    },
+                    {
+                        "class": "Service",
+                        "id": 52
                     }
                 ],
                 "users": [
                     {
                         "class": "User",
-                        "id": 12
+                        "id": 15
+                    }
+                ]
+            }
+        },
+        {
+            "attributes": {
+                "id": 16,
+                "label": "",
+                "provisioned": false
+            },
+            "relationships": {
+                "services": [
+                    {
+                        "class": "Service",
+                        "id": 53
+                    },
+                    {
+                        "class": "Service",
+                        "id": 54
+                    },
+                    {
+                        "class": "Service",
+                        "id": 55
+                    },
+                    {
+                        "class": "Service",
+                        "id": 56
+                    },
+                    {
+                        "class": "Service",
+                        "id": 57
+                    },
+                    {
+                        "class": "Service",
+                        "id": 58
+                    },
+                    {
+                        "class": "Service",
+                        "id": 59
+                    },
+                    {
+                        "class": "Service",
+                        "id": 60
+                    }
+                ],
+                "users": [
+                    {
+                        "class": "User",
+                        "id": 16
                     }
                 ]
             }
@@ -11560,7 +12168,7 @@
             "attributes": {
                 "id": 1,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11568,8 +12176,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    3,
-                    3
+                    16,
+                    6
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11583,11 +12191,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 29
+                    "id": 63
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 29
+                    "id": 63
                 },
                 "services": [],
                 "container_layers": [],
@@ -11599,7 +12207,7 @@
             "attributes": {
                 "id": 2,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -11607,8 +12215,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    11,
-                    7
+                    9,
+                    1
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11622,11 +12230,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 69
+                    "id": 14
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 69
+                    "id": 14
                 },
                 "services": [],
                 "container_layers": [],
@@ -11638,7 +12246,7 @@
             "attributes": {
                 "id": 3,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -11646,8 +12254,8 @@
                 "memory_demand": 0,
                 "disk_demand": 7,
                 "coordinates": [
-                    6,
-                    0
+                    10,
+                    2
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11661,11 +12269,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 4
+                    "id": 24
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 4
+                    "id": 24
                 },
                 "services": [],
                 "container_layers": [
@@ -11700,7 +12308,7 @@
             "attributes": {
                 "id": 4,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11708,8 +12316,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    15,
-                    5
+                    1,
+                    7
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11723,11 +12331,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 53
+                    "id": 64
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 53
+                    "id": 64
                 },
                 "services": [],
                 "container_layers": [],
@@ -11739,7 +12347,7 @@
             "attributes": {
                 "id": 5,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -11747,8 +12355,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    10,
-                    8
+                    6,
+                    0
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11762,11 +12370,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 78
+                    "id": 4
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 78
+                    "id": 4
                 },
                 "services": [],
                 "container_layers": [],
@@ -11778,7 +12386,7 @@
             "attributes": {
                 "id": 6,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -11786,8 +12394,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    14,
-                    4
+                    12,
+                    0
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11801,11 +12409,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 44
+                    "id": 7
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 44
+                    "id": 7
                 },
                 "services": [],
                 "container_layers": [],
@@ -11817,7 +12425,7 @@
             "attributes": {
                 "id": 7,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11825,8 +12433,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    8,
-                    6
+                    3,
+                    1
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11840,11 +12448,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 59
+                    "id": 11
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 59
+                    "id": 11
                 },
                 "services": [],
                 "container_layers": [],
@@ -11856,7 +12464,7 @@
             "attributes": {
                 "id": 8,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11864,8 +12472,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    16,
-                    0
+                    1,
+                    1
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11879,11 +12487,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 9
+                    "id": 10
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 9
+                    "id": 10
                 },
                 "services": [],
                 "container_layers": [],
@@ -11895,7 +12503,7 @@
             "attributes": {
                 "id": 9,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11903,8 +12511,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    10,
-                    4
+                    5,
+                    7
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11918,11 +12526,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 42
+                    "id": 66
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 42
+                    "id": 66
                 },
                 "services": [],
                 "container_layers": [],
@@ -11934,7 +12542,7 @@
             "attributes": {
                 "id": 10,
                 "available": true,
-                "model_name": "SGI Rackable C2112-4G10",
+                "model_name": "SGI",
                 "cpu": 32,
                 "memory": 32768,
                 "disk": 1048576,
@@ -11942,8 +12550,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    0,
-                    2
+                    7,
+                    3
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11957,11 +12565,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 19
+                    "id": 31
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 19
+                    "id": 31
                 },
                 "services": [],
                 "container_layers": [],
@@ -11973,7 +12581,7 @@
             "attributes": {
                 "id": 11,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -11982,7 +12590,7 @@
                 "disk_demand": 0,
                 "coordinates": [
                     9,
-                    3
+                    7
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -11996,11 +12604,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 32
+                    "id": 68
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 32
+                    "id": 68
                 },
                 "services": [],
                 "container_layers": [],
@@ -12012,7 +12620,7 @@
             "attributes": {
                 "id": 12,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12020,8 +12628,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    14,
-                    0
+                    1,
+                    5
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12035,11 +12643,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 8
+                    "id": 46
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 8
+                    "id": 46
                 },
                 "services": [],
                 "container_layers": [],
@@ -12051,7 +12659,7 @@
             "attributes": {
                 "id": 13,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12059,8 +12667,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    5,
-                    5
+                    10,
+                    6
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12074,11 +12682,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 48
+                    "id": 60
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 48
+                    "id": 60
                 },
                 "services": [],
                 "container_layers": [],
@@ -12090,7 +12698,7 @@
             "attributes": {
                 "id": 14,
                 "available": true,
-                "model_name": "HPE ProLiant DL360 Gen9",
+                "model_name": "HPE",
                 "cpu": 36,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12098,8 +12706,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    7,
-                    1
+                    4,
+                    4
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12113,11 +12721,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 13
+                    "id": 39
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 13
+                    "id": 39
                 },
                 "services": [],
                 "container_layers": [],
@@ -12129,7 +12737,7 @@
             "attributes": {
                 "id": 15,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12137,7 +12745,7 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    9,
+                    15,
                     1
                 ],
                 "max_concurrent_layer_downloads": 3,
@@ -12152,11 +12760,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 14
+                    "id": 17
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 14
+                    "id": 17
                 },
                 "services": [],
                 "container_layers": [],
@@ -12168,7 +12776,7 @@
             "attributes": {
                 "id": 16,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12176,8 +12784,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    11,
-                    5
+                    13,
+                    7
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12191,11 +12799,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 51
+                    "id": 70
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 51
+                    "id": 70
                 },
                 "services": [],
                 "container_layers": [],
@@ -12207,7 +12815,7 @@
             "attributes": {
                 "id": 17,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12215,8 +12823,8 @@
                 "memory_demand": 0,
                 "disk_demand": 0,
                 "coordinates": [
-                    9,
-                    5
+                    13,
+                    3
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12230,11 +12838,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 50
+                    "id": 34
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 50
+                    "id": 34
                 },
                 "services": [],
                 "container_layers": [],
@@ -12246,7 +12854,7 @@
             "attributes": {
                 "id": 18,
                 "available": true,
-                "model_name": "Acer AR585 F1",
+                "model_name": "Acer",
                 "cpu": 48,
                 "memory": 65536,
                 "disk": 1048576,
@@ -12255,7 +12863,7 @@
                 "disk_demand": 0,
                 "coordinates": [
                     16,
-                    2
+                    4
                 ],
                 "max_concurrent_layer_downloads": 3,
                 "active": true,
@@ -12269,11 +12877,11 @@
                 "power_model": "LinearServerPowerModel",
                 "base_station": {
                     "class": "BaseStation",
-                    "id": 27
+                    "id": 45
                 },
                 "network_switch": {
                     "class": "NetworkSwitch",
-                    "id": 27
+                    "id": 45
                 },
                 "services": [],
                 "container_layers": [],
@@ -12665,6 +13273,134 @@
                 "app": {
                     "class": "Application",
                     "id": 12
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 13,
+                "duration_values": [
+                    Infinity
+                ],
+                "interval_values": [
+                    0
+                ],
+                "history": [
+                    {
+                        "start": 1,
+                        "end": Infinity,
+                        "duration": Infinity,
+                        "waiting_time": 0,
+                        "access_time": 0,
+                        "interval": 0,
+                        "next_access": Infinity
+                    }
+                ]
+            },
+            "relationships": {
+                "user": {
+                    "class": "User",
+                    "id": 13
+                },
+                "app": {
+                    "class": "Application",
+                    "id": 13
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 14,
+                "duration_values": [
+                    Infinity
+                ],
+                "interval_values": [
+                    0
+                ],
+                "history": [
+                    {
+                        "start": 1,
+                        "end": Infinity,
+                        "duration": Infinity,
+                        "waiting_time": 0,
+                        "access_time": 0,
+                        "interval": 0,
+                        "next_access": Infinity
+                    }
+                ]
+            },
+            "relationships": {
+                "user": {
+                    "class": "User",
+                    "id": 14
+                },
+                "app": {
+                    "class": "Application",
+                    "id": 14
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 15,
+                "duration_values": [
+                    Infinity
+                ],
+                "interval_values": [
+                    0
+                ],
+                "history": [
+                    {
+                        "start": 1,
+                        "end": Infinity,
+                        "duration": Infinity,
+                        "waiting_time": 0,
+                        "access_time": 0,
+                        "interval": 0,
+                        "next_access": Infinity
+                    }
+                ]
+            },
+            "relationships": {
+                "user": {
+                    "class": "User",
+                    "id": 15
+                },
+                "app": {
+                    "class": "Application",
+                    "id": 15
+                }
+            }
+        },
+        {
+            "attributes": {
+                "id": 16,
+                "duration_values": [
+                    Infinity
+                ],
+                "interval_values": [
+                    0
+                ],
+                "history": [
+                    {
+                        "start": 1,
+                        "end": Infinity,
+                        "duration": Infinity,
+                        "waiting_time": 0,
+                        "access_time": 0,
+                        "interval": 0,
+                        "next_access": Infinity
+                    }
+                ]
+            },
+            "relationships": {
+                "user": {
+                    "class": "User",
+                    "id": 16
+                },
+                "app": {
+                    "class": "Application",
+                    "id": 16
                 }
             }
         }

@@ -2,9 +2,11 @@
 from edge_sim_py import *
 
 # Python libraries
+from sklearn.cluster import KMeans
 from random import seed, choice
 import matplotlib.pyplot as plt
 import networkx as nx
+import numpy as np
 import random
 import copy
 
@@ -57,18 +59,26 @@ def display_topology(topology: object, output_filename: str = "topology"):
     colors = []
     sizes = []
 
-    color_options = ["red", "green", "blue", "purple", "orange"]
+    # Gathering the coordinates of edge servers
+    edge_server_coordinates = [edge_server.coordinates for edge_server in EdgeServer.all()]
 
-    for index, node in enumerate(topology.nodes()):
-        positions[node] = node.coordinates if hasattr(node, "coordinates") else index
-        labels[node] = node.id if hasattr(node, "id") else index
+    # Defining list of color options
+    color_options = []
+    for _ in range(EdgeServer.count()):
+        color_options.append([random.random(), random.random(), random.random()])
+
+    for node in topology.nodes():
+        positions[node] = node.coordinates
+        labels[node] = node.id
         node_size = 500 if any(user.coordinates == node.coordinates for user in User.all()) else 100
         sizes.append(node_size)
 
-        if len(node.base_station.edge_servers) > 0:
-            colors.append(color_options[node.base_station.edge_servers[0].infrastructure_provider - 1])
+        if node.coordinates in edge_server_coordinates:
+            colors.append("red")
+            # colors.append([primary_color_value / 3 for primary_color_value in color_options[node_clusters[node.id - 1]]])
         else:
             colors.append("black")
+            # colors.append(color_options[node_clusters[node.id - 1]])
 
     # Configuring drawing scheme
     nx.draw(
@@ -83,7 +93,7 @@ def display_topology(topology: object, output_filename: str = "topology"):
     )
 
     # Saving a topology image in the disk
-    plt.savefig(f"{output_filename}.png", dpi=150)
+    plt.savefig(f"{output_filename}.png", dpi=120)
 
 
 # Application -> provisioned
@@ -239,7 +249,8 @@ def sgi_rackable_c2112_4g10() -> object:
         edge_server (object): Created EdgeServer object.
     """
     edge_server = EdgeServer()
-    edge_server.model_name = "SGI Rackable C2112-4G10"
+    # edge_server.model_name = "SGI Rackable C2112-4G10"
+    edge_server.model_name = "SGI"
 
     # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
     edge_server.cpu = 32
@@ -263,7 +274,8 @@ def proliant_dl360_gen9() -> object:
         edge_server (object): Created EdgeServer object.
     """
     edge_server = EdgeServer()
-    edge_server.model_name = "HPE ProLiant DL360 Gen9"
+    # edge_server.model_name = "HPE ProLiant DL360 Gen9"
+    edge_server.model_name = "HPE"
 
     # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
     edge_server.cpu = 36
@@ -287,7 +299,8 @@ def ar585_f1() -> object:
         edge_server (object): Created EdgeServer object.
     """
     edge_server = EdgeServer()
-    edge_server.model_name = "Acer AR585 F1"
+    # edge_server.model_name = "Acer AR585 F1"
+    edge_server.model_name = "Acer"
 
     # Computational capacity (CPU in cores, RAM memory in megabytes, and disk in megabytes)
     edge_server.cpu = 48
@@ -334,6 +347,22 @@ provider_specs = [
     },
 ]
 
+# Creating clusters of network switches based on the number of specified edge servers
+number_of_edge_servers = 0
+for provider in provider_specs:
+    number_of_edge_servers += sum([spec["number_of_objects"] for spec in provider["edge_server_specs"]])
+kmeans = KMeans(init="k-means++", n_init=100, n_clusters=number_of_edge_servers, random_state=0, max_iter=1000).fit(
+    [switch.coordinates for switch in NetworkSwitch.all()]
+)
+node_clusters = list(kmeans.labels_)
+edge_server_coordinates = []
+for centroid in list(kmeans.cluster_centers_):
+    node_closest_to_centroid = sorted(
+        NetworkSwitch.all(), key=lambda switch: np.linalg.norm(np.array(switch.coordinates) - np.array([centroid[0], centroid[1]]))
+    )[0]
+    edge_server_coordinates.append(node_closest_to_centroid.coordinates)
+edge_server_coordinates = random.sample(edge_server_coordinates, len(edge_server_coordinates))
+
 for provider_spec in provider_specs:
     for edge_server_spec in provider_spec["edge_server_specs"]:
         for _ in range(edge_server_spec["number_of_objects"]):
@@ -350,9 +379,13 @@ for provider_spec in provider_specs:
             edge_server.infrastructure_provider = provider_spec["id"]
 
             # Connecting the edge server to a random base station
-            base_stations_without_edge_servers = [bs for bs in BaseStation.all() if len(bs.edge_servers) == 0]
-            base_station = random.sample(base_stations_without_edge_servers, 1)[0]
+            # base_stations_without_edge_servers = [bs for bs in BaseStation.all() if len(bs.edge_servers) == 0]
+            # base_station = random.sample(base_stations_without_edge_servers, 1)[0]
+            base_station = BaseStation.find_by(
+                attribute_name="coordinates", attribute_value=edge_server_coordinates[edge_server.id - 1]
+            )
             base_station._connect_to_edge_server(edge_server=edge_server)
+
 
 # Defining specifications for container images and container registries
 container_image_specifications = [
@@ -429,9 +462,10 @@ def random_user_placement():
 
 # Defining applications/services specifications
 application_specifications = [
+    {"number_of_objects": 2, "number_of_services": 1},
     {"number_of_objects": 2, "number_of_services": 2},
     {"number_of_objects": 2, "number_of_services": 4},
-    {"number_of_objects": 2, "number_of_services": 6},
+    {"number_of_objects": 2, "number_of_services": 8},
 ]
 
 # Defining user delay SLA values (application specs are mirrored for each provider and each application has its own user)
