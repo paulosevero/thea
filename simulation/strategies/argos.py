@@ -36,8 +36,10 @@ def argos(parameters: dict = {}):
 
 def get_host_candidates(user: object) -> list:
     """Get list of host candidates for hosting services of a given user.
+
     Args:
         user (object): User object.
+
     Returns:
         list: List of host candidates.
     """

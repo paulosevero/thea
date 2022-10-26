@@ -1,6 +1,7 @@
 # Importing EdgeSimPy components
-from edge_sim_py.components.user import User
 from edge_sim_py.components.edge_server import EdgeServer
+from edge_sim_py.components.user import User
+from edge_sim_py.components.application import Application
 from edge_sim_py.components.service import Service
 from edge_sim_py.components.container_layer import ContainerLayer
 
@@ -28,26 +29,32 @@ def random_fit() -> list:
     Returns:
         placement (list): Generated placement solution.
     """
-    if random() > 0.5:
-        placement = [sample(EdgeServer.all(), 1)[0].id for _ in range(Service.count())]
-    else:
-        services = sample(Service.all(), Service.count())
-        for service in services:
-            app = service.application
-            user = app.users[0]
+    services = sample(Service.all(), Service.count())
+    for service in services:
+        app = service.application
+        user = app.users[0]
+        user_switch = user.base_station.network_switch
 
-            # Shuffling the list of edge servers
+        if random() > 0.5:
             edge_servers = sample(EdgeServer.all(), EdgeServer.count())
+        else:
+            edge_servers = sorted(
+                EdgeServer.all(),
+                key=lambda server: calculate_path_delay(
+                    origin_network_switch=user_switch,
+                    target_network_switch=server.network_switch,
+                ),
+            )
 
-            for edge_server in edge_servers:
-                # Checking if the host would have resources to host the service and its (additional) layers
-                if edge_server.has_capacity_to_host(service=service):
-                    provision(user=user, application=app, service=service, edge_server=edge_server)
-                    break
+        for edge_server in edge_servers:
+            # Checking if the host would have resources to host the service and its (additional) layers
+            if edge_server.has_capacity_to_host(service=service):
+                provision(user=user, application=app, service=service, edge_server=edge_server)
+                break
 
-        placement = [service.server.id for service in Service.all()]
+    placement = [service.server.id for service in Service.all()]
 
-        reset_placement()
+    reset_placement()
 
     return placement
 
@@ -136,10 +143,17 @@ def evaluate_placement() -> tuple:
             overloaded_edge_servers += 1
 
     # Aggregating the solution's fitness scores and penalties
+    delay_sla_violations = delay_sla_violations / Application.count() * 100
+    privacy_sla_violations = privacy_sla_violations / Service.count() * 100
+
+    max_edge_server_power_consumption_possible = sum([S.power_model_parameters["max_power_consumption"] for S in EdgeServer.all()])
+    overall_edge_server_power_consumption = overall_edge_server_power_consumption / max_edge_server_power_consumption_possible * 100
+
     fitness_values = (
         delay_sla_violations,
         privacy_sla_violations,
-        sum(watts_per_core) / number_of_used_cpu_cores,
+        overall_edge_server_power_consumption
+        # sum(watts_per_core) / number_of_used_cpu_cores,
     )
     penalties = overloaded_edge_servers
 
@@ -241,12 +255,6 @@ def nsgaii(parameters: dict = {}):
     res = minimize(problem, algorithm, termination=("n_gen", n_gen), seed=1, verbose=VERBOSE, display=TheaDisplay())
 
     # Parsing the NSGA-II's output
-    min_delay_violations = float("inf")
-    min_privacy_violations = float("inf")
-    min_power_consumption = float("inf")
-    max_delay_violations = float("-inf")
-    max_privacy_violations = float("-inf")
-    max_power_consumption = float("-inf")
     solutions = []
     for i in range(len(res.X)):
         solution = {
@@ -257,20 +265,10 @@ def nsgaii(parameters: dict = {}):
             "overloaded_servers": res.CV[i][0].tolist(),
         }
         solutions.append(solution)
-        min_delay_violations = min(min_delay_violations, solution["Delay Violations"])
-        max_delay_violations = max(max_delay_violations, solution["Delay Violations"])
-
-        min_privacy_violations = min(min_privacy_violations, solution["Priv. Violations"])
-        max_privacy_violations = max(max_privacy_violations, solution["Priv. Violations"])
-
-        min_power_consumption = min(min_power_consumption, solution["Power Consumption"])
-        max_power_consumption = max(max_power_consumption, solution["Power Consumption"])
 
     # Applying the a placement scheme found by the NSGA-II algorithm
     best_solution = sorted(
-        solutions,
-        key=lambda s: min_max_norm(x=s["Delay Violations"], min=min_delay_violations, max=max_delay_violations)
-        + min_max_norm(x=s["Priv. Violations"], min=min_privacy_violations, max=max_privacy_violations)
-        + min_max_norm(x=s["Power Consumption"], min=min_power_consumption, max=max_power_consumption),
+        solutions, key=lambda solution: (solution["Delay Violations"], solution["Priv. Violations"], solution["Power Consumption"])
     )[0]["placement"]
+
     apply_placement(solution=best_solution)
