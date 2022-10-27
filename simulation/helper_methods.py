@@ -1,7 +1,11 @@
 # Importing EdgeSimPy components
-from edge_sim_py.components.container_layer import ContainerLayer
 from edge_sim_py.components.topology import Topology
 from edge_sim_py.components.network_switch import NetworkSwitch
+from edge_sim_py.components.edge_server import EdgeServer
+from edge_sim_py.components.user import User
+from edge_sim_py.components.application import Application
+from edge_sim_py.components.container_layer import ContainerLayer
+from edge_sim_py.components.service import Service
 
 # Importing Python libraries
 import networkx as nx
@@ -47,59 +51,6 @@ def uniform(n_items: int, valid_values: list, shuffle_distribution: bool = True)
         random.shuffle(uniform_distribution)
 
     return uniform_distribution
-
-
-def optimized_set_communication_path(self, app: object, communication_path: list = []) -> list:
-    """Updates the set of links used during the communication of user and its application.
-
-    Args:
-        app (object): User application.
-        communication_path (list, optional): User-specified communication path. Defaults to [].
-
-    Returns:
-        communication_path (list): Updated communication path.
-    """
-    topology = Topology.first()
-
-    # Releasing links used in the past to connect the user with its application
-    if app in self.communication_paths:
-        path = [[NetworkSwitch.find_by_id(i) for i in p] for p in self.communication_paths[str(app.id)]]
-        topology._release_communication_path(communication_path=path, app=app)
-
-    # Defining communication path
-    if len(communication_path) > 0:
-        self.communication_paths[str(app.id)] = communication_path
-    else:
-        self.communication_paths[str(app.id)] = []
-
-        service_hosts_base_stations = [service.server.base_station for service in app.services if service.server]
-        communication_chain = [self.base_station] + service_hosts_base_stations
-
-        # Defining a set of links to connect the items in the application's service chain
-        for i in range(len(communication_chain) - 1):
-
-            # Defining origin and target nodes
-            origin = communication_chain[i]
-            target = communication_chain[i + 1]
-
-            # Finding and storing the best communication path between the origin and target nodes
-            if origin == target:
-                path = []
-            else:
-                path = find_shortest_path(origin_network_switch=origin.network_switch, target_network_switch=target.network_switch)
-
-            # Adding the best path found to the communication path
-            self.communication_paths[str(app.id)].append([network_switch.id for network_switch in path])
-
-            # Computing the new demand of chosen links
-            path = [[NetworkSwitch.find_by_id(i) for i in p] for p in self.communication_paths[str(app.id)]]
-            topology._allocate_communication_path(communication_path=path, app=app)
-
-    # Computing application's delay
-    self._compute_delay(app=app, metric="latency")
-
-    communication_path = self.communication_paths[str(app.id)]
-    return communication_path
 
 
 def provision(user: object, application: object, service: object, edge_server: object):
@@ -229,6 +180,42 @@ def get_norm(metadata: dict, attr_name: str, min: dict, max: dict) -> float:
     return normalized_value
 
 
+def find_minimum_and_maximum(metadata: list):
+    """Finds the minimum and maximum values of a list of dictionaries.
+
+    Args:
+        metadata (list): List of dictionaries that contains the analyzed metadata.
+
+    Returns:
+        min_and_max (dict): Dictionary that contains the minimum and maximum values of the attributes.
+    """
+    min_and_max = {
+        "minimum": {},
+        "maximum": {},
+    }
+
+    for metadata_item in metadata:
+        for attr_name, attr_value in metadata_item.items():
+            if attr_name != "object":
+                # Updating the attribute's minimum value
+                if (
+                    attr_name not in min_and_max["minimum"]
+                    or attr_name in min_and_max["minimum"]
+                    and attr_value < min_and_max["minimum"][attr_name]
+                ):
+                    min_and_max["minimum"][attr_name] = attr_value
+
+                # Updating the attribute's maximum value
+                if (
+                    attr_name not in min_and_max["maximum"]
+                    or attr_name in min_and_max["maximum"]
+                    and attr_value > min_and_max["maximum"][attr_name]
+                ):
+                    min_and_max["maximum"][attr_name] = attr_value
+
+    return min_and_max
+
+
 def normalize_cpu_and_memory(cpu, memory) -> float:
     """Normalizes the CPU and memory values.
 
@@ -241,3 +228,70 @@ def normalize_cpu_and_memory(cpu, memory) -> float:
     """
     normalized_value = (cpu * memory) ** (1 / 2)
     return normalized_value
+
+
+def apply_placement(solution: list):
+    """Applies the placement scheme suggested by the chromosome.
+
+    Args:
+        solution (list): Placement scheme.
+    """
+    for service_id, edge_server_id in enumerate(solution, 1):
+        service = Service.find_by_id(service_id)
+        edge_server = EdgeServer.find_by_id(edge_server_id)
+        app = service.application
+        user = app.users[0]
+
+        provision(user=user, application=app, service=service, edge_server=edge_server)
+
+
+def reset_placement():
+    """Resets the placement scheme suggested by the chromosome."""
+    for edge_server in EdgeServer.all():
+        # Resetting the demand
+        edge_server.cpu_demand = 0
+        edge_server.memory_demand = 0
+        edge_server.disk_demand = 0
+
+        # Deprovisioning services
+        for service in edge_server.services:
+            service.server = None
+        edge_server.services = []
+
+        # Removing layers from edge servers not initially set as hosts for container registries
+        if len(edge_server.container_registries) == 0:
+            layers = list(edge_server.container_layers)
+            edge_server.container_layers = []
+            for layer in layers:
+                layer.server = None
+                ContainerLayer.remove(layer)
+
+    for user in User.all():
+        for app in user.applications:
+            user.delays[str(app.id)] = 0
+            user.communication_paths[str(app.id)] = []
+
+
+def evaluate_placement() -> tuple:
+    """Evaluates a placement scheme based on the normalized number of SLA violations (delay and privacy) and power consumption."""
+    # Gathering metrics
+    metrics = Topology.first().collect()
+
+    # Gathering the number of overloaded edge servers
+    overloaded_edge_servers = metrics["overloaded_edge_servers"]
+
+    # Gathering the overall edge server power consumption
+    max_power_consumption_possible = sum([server.power_model_parameters["max_power_consumption"] for server in EdgeServer.all()])
+    overall_power_consumption = metrics["overall_power_consumption"] / max_power_consumption_possible * 100
+
+    # Gathering the number of SLA violations (delay and privacy)
+    delay_sla_violations = metrics["delay_sla_violations"] / Application.count() * 100
+    privacy_sla_violations = metrics["privacy_sla_violations"] / Service.count() * 100
+
+    # Aggregating the results
+    objectives = (delay_sla_violations, privacy_sla_violations, overall_power_consumption)
+    penalties = overloaded_edge_servers
+
+    output = (objectives, penalties)
+
+    return output

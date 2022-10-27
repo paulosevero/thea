@@ -7,6 +7,66 @@ from edge_sim_py.components.service import Service
 from simulation.helper_methods import *
 
 
+def thea(parameters: dict = {}):
+    """Heuristic algorithm that provisions composite applications on federated edge infrastructures taking into account the delay
+    and privacy requirements of applications, the trust degree between application users and infrastructure providers, and the
+    power consumption of edge servers.
+
+    Args:
+        parameters (dict, optional): Algorithm parameters. Defaults to {}.
+    """
+    # Thea continues to run until all applications are provisioned
+    while sum(1 for app in Application.all() if not app.provisioned) > 0:
+
+        # Sorting applications according to their delay and privacy scores
+        apps = []
+        for app in [app for app in Application.all() if not app.provisioned]:
+            app_attrs = {
+                "object": app,
+                "number_of_services": len(app.services),
+                "delay_sla": app.users[0].delay_slas[str(app.id)],
+                "delay_score": get_application_delay_score(app=app),
+                "privacy_score": get_application_privacy_score(app=app),
+            }
+            apps.append(app_attrs)
+
+        # Gathering the application with the highest delay and privacy score to be provisioned
+        app = sorted(apps, key=lambda app: (app["delay_score"] * app["privacy_score"]) ** (1 / 2), reverse=True)[0]["object"]
+        user = app.users[0]
+
+        # Iterating over the list of services that compose the application
+        for service in app.services:
+            # Gathering the list of edge servers candidates for hosting the service
+            edge_servers = get_host_candidates(user=user, service=service)
+
+            # Finding the minimum and maximum values for the edge server attributes
+            min_and_max = find_minimum_and_maximum(metadata=edge_servers)
+
+            # Sorting edge server host candidates based on the number of SLA violations they
+            # would cause to the application and their power consumption and delay costs
+            edge_servers = sorted(
+                edge_servers,
+                key=lambda s: (
+                    s["sla_violations"],
+                    get_norm(metadata=s, attr_name="affected_services_cost", min=min_and_max["minimum"], max=min_and_max["maximum"])
+                    + get_norm(metadata=s, attr_name="power_consumption", min=min_and_max["minimum"], max=min_and_max["maximum"])
+                    + get_norm(metadata=s, attr_name="delay_cost", min=min_and_max["minimum"], max=min_and_max["maximum"]),
+                ),
+            )
+
+            # Greedily iterating over the list of edge servers to find a host for the service
+            for edge_server_metadata in edge_servers:
+                edge_server = edge_server_metadata["object"]
+
+                # Provisioning the service on the best edge server found it it has enough resources
+                if edge_server.has_capacity_to_host(service):
+                    provision(user=user, application=app, service=service, edge_server=edge_server)
+                    break
+
+        # Setting the application as provisioned once all of its services have been provisioned
+        app.provisioned = True
+
+
 def get_application_delay_score(app: object) -> float:
     """Calculates the application delay score considering the number application's SLA and the number of edge servers close enough
     to the application's user that could be used to host the application's services without violating the delay SLA.
@@ -53,74 +113,6 @@ def get_application_privacy_score(app: object):
         privacy_score += normalize_cpu_and_memory(cpu=service.cpu_demand, memory=service.memory_demand) * service.privacy_requirement
 
     return privacy_score
-
-
-def thea(parameters: dict = {}):
-    """Heuristic algorithm that provisions composite applications on federated edge infrastructures taking into account the delay
-    and privacy requirements of applications, the trust degree between application users and infrastructure providers, and the
-    power consumption of edge servers.
-
-    Args:
-        parameters (dict, optional): Algorithm parameters. Defaults to {}.
-    """
-    # Thea continues to run until all applications are provisioned
-    while sum(1 for app in Application.all() if not app.provisioned) > 0:
-
-        # Sorting applications according to their delay and privacy scores
-        apps = []
-        for app in [app for app in Application.all() if not app.provisioned]:
-            app_attrs = {
-                "object": app,
-                "number_of_services": len(app.services),
-                "delay_sla": app.users[0].delay_slas[str(app.id)],
-                "delay_score": get_application_delay_score(app=app),
-                "privacy_score": get_application_privacy_score(app=app),
-            }
-            apps.append(app_attrs)
-
-        # Gathering the application with the highest delay and privacy score to be provisioned
-        app = sorted(apps, key=lambda app: (app["delay_score"] * app["privacy_score"]) ** (1 / 2), reverse=True)[0]["object"]
-        user = app.users[0]
-
-        # Iterating over the list of services that compose the application
-        for service in app.services:
-            # Gathering the list of edge servers candidates for hosting the service
-            edge_servers = get_host_candidates(user=user, service=service)
-
-            # Finding the minimum and maximum values for the edge server attributes
-            minimum = {}
-            maximum = {}
-            for edge_server_metadata in edge_servers:
-                for attr_name, attr_value in edge_server_metadata.items():
-                    if attr_name != "object":
-                        if attr_name not in minimum or attr_name in minimum and attr_value < minimum[attr_name]:
-                            minimum[attr_name] = attr_value
-                        if attr_name not in maximum or attr_name in maximum and attr_value > maximum[attr_name]:
-                            maximum[attr_name] = attr_value
-
-            # Sorting edge server host candidates based on the number of SLA violations they
-            # would cause to the application and their power consumption and delay costs
-            edge_servers = sorted(
-                edge_servers,
-                key=lambda s: (
-                    s["sla_violations"],
-                    get_norm(metadata=s, attr_name="affected_services_cost", min=minimum, max=maximum)
-                    + get_norm(metadata=s, attr_name="power_consumption", min=minimum, max=maximum)
-                    + get_norm(metadata=s, attr_name="delay_cost", min=minimum, max=maximum),
-                ),
-            )
-
-            # Greedily iterating over the list of edge servers to find a host for the service
-            for edge_server_metadata in edge_servers:
-                edge_server = edge_server_metadata["object"]
-
-                # Provisioning the service on the best edge server found it it has enough resources
-                if edge_server.has_capacity_to_host(service):
-                    provision(user=user, application=app, service=service, edge_server=edge_server)
-                    break
-
-        # Setting the application as provisioned once all of its services have been provisioned
-        app.provisioned = True
 
 
 def get_host_candidates(user: object, service: object) -> list:

@@ -1,9 +1,6 @@
 # Importing EdgeSimPy components
 from edge_sim_py.components.edge_server import EdgeServer
-from edge_sim_py.components.user import User
-from edge_sim_py.components.application import Application
 from edge_sim_py.components.service import Service
-from edge_sim_py.components.container_layer import ContainerLayer
 
 # Importing helper methods
 from simulation.helper_methods import *
@@ -57,109 +54,6 @@ def random_fit() -> list:
     reset_placement()
 
     return placement
-
-
-def apply_placement(solution: list):
-    """Applies the placement scheme suggested by the chromosome.
-
-    Args:
-        solution (list): Placement scheme.
-    """
-    for service_id, edge_server_id in enumerate(solution, 1):
-        service = Service.find_by_id(service_id)
-        edge_server = EdgeServer.find_by_id(edge_server_id)
-        app = service.application
-        user = app.users[0]
-
-        provision(user=user, application=app, service=service, edge_server=edge_server)
-
-
-def reset_placement():
-    """Resets the placement scheme suggested by the chromosome."""
-    for edge_server in EdgeServer.all():
-        # Resetting the demand
-        edge_server.cpu_demand = 0
-        edge_server.memory_demand = 0
-        edge_server.disk_demand = 0
-
-        # Deprovisioning services
-        for service in edge_server.services:
-            service.server = None
-        edge_server.services = []
-
-        # Removing layers from edge servers not initially set as hosts for container registries
-        if len(edge_server.container_registries) == 0:
-            layers = list(edge_server.container_layers)
-            edge_server.container_layers = []
-            for layer in layers:
-                layer.server = None
-                ContainerLayer.remove(layer)
-
-    for user in User.all():
-        for app in user.applications:
-            user.delays[str(app.id)] = 0
-            user.communication_paths[str(app.id)] = []
-
-
-def evaluate_placement() -> tuple:
-    """Evaluates the placement scheme suggested by the chromosome."""
-    delay_sla_violations = 0
-    privacy_sla_violations = 0
-    overall_edge_server_power_consumption = 0
-    watts_per_core = []
-    number_of_used_cpu_cores = 0
-    overloaded_edge_servers = 0
-
-    for user in User.all():
-        for app in user.applications:
-            user.set_communication_path(app=app)
-            delay_sla = user.delay_slas[str(app.id)]
-            delay = user._compute_delay(app=app, metric="latency")
-
-            # Calculating objective #1: Number of Delay SLA Violations
-            if delay > delay_sla:
-                delay_sla_violations += 1
-
-            # Calculating objective #2: Number of Privacy SLA Violations
-            for service in app.services:
-                if service.privacy_requirement > user.providers_trust[str(service.server.infrastructure_provider)]:
-                    privacy_sla_violations += 1
-
-    for edge_server in EdgeServer.all():
-        # Calculating objective #3: Infrastructure's Power Consumption
-        overall_edge_server_power_consumption += edge_server.get_power_consumption()
-        watts_per_core.append(
-            edge_server.cpu_demand * round(edge_server.power_model_parameters["max_power_consumption"] / edge_server.cpu)
-        )
-        number_of_used_cpu_cores += edge_server.cpu_demand
-
-        # Calculating the edge server's free resources
-        free_cpu = edge_server.cpu - edge_server.cpu_demand
-        free_memory = edge_server.memory - edge_server.memory_demand
-        free_disk = edge_server.disk - edge_server.disk_demand
-
-        # Calculating penalty #1: Number of overloaded edge servers
-        if free_cpu < 0 or free_memory < 0 or free_disk < 0:
-            overloaded_edge_servers += 1
-
-    # Aggregating the solution's fitness scores and penalties
-    delay_sla_violations = delay_sla_violations / Application.count() * 100
-    privacy_sla_violations = privacy_sla_violations / Service.count() * 100
-
-    max_edge_server_power_consumption_possible = sum([S.power_model_parameters["max_power_consumption"] for S in EdgeServer.all()])
-    overall_edge_server_power_consumption = overall_edge_server_power_consumption / max_edge_server_power_consumption_possible * 100
-
-    fitness_values = (
-        delay_sla_violations,
-        privacy_sla_violations,
-        overall_edge_server_power_consumption
-        # sum(watts_per_core) / number_of_used_cpu_cores,
-    )
-    penalties = overloaded_edge_servers
-
-    output = (fitness_values, penalties)
-
-    return output
 
 
 class TheaDisplay(Display):
