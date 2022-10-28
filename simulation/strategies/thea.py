@@ -31,7 +31,15 @@ def thea(parameters: dict = {}):
             apps.append(app_attrs)
 
         # Gathering the application with the highest delay and privacy score to be provisioned
-        app = sorted(apps, key=lambda app: (app["delay_score"] * app["privacy_score"]) ** (1 / 2), reverse=True)[0]["object"]
+        min_and_max = find_minimum_and_maximum(metadata=apps)
+        app = sorted(
+            apps,
+            key=lambda app: (
+                get_norm(metadata=app, attr_name="delay_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
+                + get_norm(metadata=app, attr_name="privacy_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
+            ),
+            reverse=True,
+        )[0]["object"]
         user = app.users[0]
 
         # Iterating over the list of services that compose the application
@@ -75,27 +83,26 @@ def get_application_delay_score(app: object) -> float:
         app (object): Application whose delay score will be calculated.
 
     Returns:
-        delay_score (float): Application's delay score.
+        app_delay_score (float): Application's delay score.
     """
     # Gathering information about the application
     delay_sla = app.users[0].delay_slas[str(app.id)]
     user_switch = app.users[0].base_station.network_switch
 
     # Gathering the list of hosts close enough to the user that could be used to host the services without violating the delay SLA
-    edge_servers_that_dont_violate_delay_sla = [
-        1
-        for edge_server in EdgeServer.all()
-        if calculate_path_delay(origin_network_switch=user_switch, target_network_switch=edge_server.network_switch) <= delay_sla
-    ]
+    edge_servers_that_dont_violate_delay_sla = 0
+    for edge_server in EdgeServer.all():
+        if calculate_path_delay(origin_network_switch=user_switch, target_network_switch=edge_server.network_switch) <= delay_sla:
+            edge_servers_that_dont_violate_delay_sla += 1
 
-    if sum(edge_servers_that_dont_violate_delay_sla) == 0:
-        delay_score = 0
+    if min(edge_servers_that_dont_violate_delay_sla, delay_sla) == 0:
+        app_delay_score = 0
     else:
-        delay_score = 1 / ((len(edge_servers_that_dont_violate_delay_sla) * delay_sla) ** (1 / 2))
+        app_delay_score = 1 / ((edge_servers_that_dont_violate_delay_sla * delay_sla) ** (1 / 2))
 
-    delay_score = delay_score * len(app.services)
+    app_delay_score = app_delay_score * len(app.services)
 
-    return delay_score
+    return app_delay_score
 
 
 def get_application_privacy_score(app: object):
@@ -105,14 +112,17 @@ def get_application_privacy_score(app: object):
         app (object): Application whose privacy score will be calculated.
 
     Returns:
-        privacy_score (float): Application's privacy score.
+        app_privacy_score (float): Application's privacy score.
     """
-    privacy_score = 0
+    app_privacy_score = 0
 
     for service in app.services:
-        privacy_score += normalize_cpu_and_memory(cpu=service.cpu_demand, memory=service.memory_demand) * service.privacy_requirement
+        normalized_demand = normalize_cpu_and_memory(cpu=service.cpu_demand, memory=service.memory_demand)
+        privacy_requirement = service.privacy_requirement
+        service_privacy_score = normalized_demand * (1 + privacy_requirement)
+        app_privacy_score += service_privacy_score
 
-    return privacy_score
+    return app_privacy_score
 
 
 def get_host_candidates(user: object, service: object) -> list:
