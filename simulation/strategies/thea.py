@@ -15,31 +15,32 @@ def thea(parameters: dict = {}):
     Args:
         parameters (dict, optional): Algorithm parameters. Defaults to {}.
     """
-    # Thea continues to run until all applications are provisioned
-    while sum(1 for app in Application.all() if not app.provisioned) > 0:
+    # Sorting applications according to their delay and privacy scores
+    apps_metadata = []
+    for app in [app for app in Application.all() if not app.provisioned]:
+        app_attrs = {
+            "object": app,
+            "number_of_services": len(app.services),
+            "delay_sla": app.users[0].delay_slas[str(app.id)],
+            "delay_score": get_application_delay_score(app=app),
+            "privacy_score": get_application_privacy_score(app=app),
+        }
+        apps_metadata.append(app_attrs)
 
-        # Sorting applications according to their delay and privacy scores
-        apps = []
-        for app in [app for app in Application.all() if not app.provisioned]:
-            app_attrs = {
-                "object": app,
-                "number_of_services": len(app.services),
-                "delay_sla": app.users[0].delay_slas[str(app.id)],
-                "delay_score": get_application_delay_score(app=app),
-                "privacy_score": get_application_privacy_score(app=app),
-            }
-            apps.append(app_attrs)
+    # Gathering the application with the highest delay and privacy score to be provisioned
+    min_and_max = find_minimum_and_maximum(metadata=apps_metadata)
+    apps_metadata = sorted(
+        apps_metadata,
+        key=lambda app: (
+            get_norm(metadata=app, attr_name="delay_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
+            + get_norm(metadata=app, attr_name="privacy_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
+        ),
+        reverse=True,
+    )
 
-        # Gathering the application with the highest delay and privacy score to be provisioned
-        min_and_max = find_minimum_and_maximum(metadata=apps)
-        app = sorted(
-            apps,
-            key=lambda app: (
-                get_norm(metadata=app, attr_name="delay_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
-                + get_norm(metadata=app, attr_name="privacy_score", min=min_and_max["minimum"], max=min_and_max["maximum"])
-            ),
-            reverse=True,
-        )[0]["object"]
+    # Iterating over the sorted list of applications to provision their services
+    for app_metadata in apps_metadata:
+        app = app_metadata["object"]
         user = app.users[0]
 
         # Iterating over the list of services that compose the application
@@ -72,7 +73,10 @@ def thea(parameters: dict = {}):
                     break
 
         # Setting the application as provisioned once all of its services have been provisioned
-        app.provisioned = True
+        if all([service.server != None for service in app.services]):
+            app.provisioned = True
+        else:
+            raise Exception(f"{app} could not be provisioned.")
 
 
 def get_application_delay_score(app: object) -> float:
