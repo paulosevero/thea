@@ -99,7 +99,7 @@ def get_application_delay_score(app: object) -> float:
         if calculate_path_delay(origin_network_switch=user_switch, target_network_switch=edge_server.network_switch) <= delay_sla:
             edge_servers_that_dont_violate_delay_sla += 1
 
-    if min(edge_servers_that_dont_violate_delay_sla, delay_sla) == 0:
+    if edge_servers_that_dont_violate_delay_sla == 0:
         app_delay_score = 0
     else:
         app_delay_score = 1 / ((edge_servers_that_dont_violate_delay_sla * delay_sla) ** (1 / 2))
