@@ -198,8 +198,7 @@ def topology_collect(self) -> dict:
             {
                 "model_name": model_name,
                 "occupation": occupation_per_model[model_name],
-                "power_consumption": sum(power_consumption_per_server_model[model_name])
-                / len(power_consumption_per_server_model[model_name]),
+                "power_consumption": sum(power_consumption_per_server_model[model_name]),
                 "active_servers": active_servers_per_model[model_name],
             }
         )
