@@ -137,3 +137,8 @@ poetry.lock
 # Simulation logs
 logs
 logs*
+
+dependencies
+*.csv
+*.pdf
+*.png
