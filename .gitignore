@@ -133,3 +133,12 @@ poetry.lock
 
 # VSCode
 .vscode
+
+# Simulation logs
+logs
+logs*
+
+dependencies
+*.csv
+*.pdf
+*.png

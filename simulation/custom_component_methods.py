@@ -108,6 +108,7 @@ def topology_collect(self) -> dict:
         capacity = normalize_cpu_and_memory(cpu=edge_server.cpu, memory=edge_server.memory)
         demand = normalize_cpu_and_memory(cpu=edge_server.cpu_demand, memory=edge_server.memory_demand)
         overall_occupation += demand / capacity * 100
+        overall_power_consumption += edge_server.get_power_consumption()
 
         # Number of overloaded edge servers
         free_cpu = edge_server.cpu - edge_server.cpu_demand
@@ -133,7 +134,6 @@ def topology_collect(self) -> dict:
 
     # Aggregating overall metrics
     overall_occupation = overall_occupation / EdgeServer.count()
-    overall_power_consumption = sum(sum(model_consumption) for model_consumption in power_consumption_per_server_model.values())
 
     for provider_id in occupation_per_provider.keys():
         active_servers_per_infrastructure_provider[provider_id] = len(
@@ -198,8 +198,7 @@ def topology_collect(self) -> dict:
             {
                 "model_name": model_name,
                 "occupation": occupation_per_model[model_name],
-                "power_consumption": sum(power_consumption_per_server_model[model_name])
-                / len(power_consumption_per_server_model[model_name]),
+                "power_consumption": sum(power_consumption_per_server_model[model_name]),
                 "active_servers": active_servers_per_model[model_name],
             }
         )
