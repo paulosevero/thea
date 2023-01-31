@@ -40,6 +40,7 @@ Within the repository, you'll find the following directories and files, logicall
 ├── datasets/
 ├── pyproject.toml
 ├── run_experiments.py
+├── results.ipynb
 └── simulation/
     ├── __main__.py
     ├── custom_component_methods.py
@@ -56,6 +57,8 @@ In the root directory, the `pyproject.toml` file organizes all project dependenc
 > Modifications made to the `pyproject.toml` file are automatically inserted into `poetry.lock` whenever Poetry is called.
 
 The `run_experiments.py` file makes it easy to execute the implemented strategies. For instance, with a few instructions, we can conduct a complete sensitivity analysis of the algorithms using different sets of parameters.
+
+The `results.ipynb` file contains the code used to compute the results presented in the paper.
 
 The `datasets` directory contains JSON files describing the scenario and components that will be simulated during the experiments and PNG files representing these scenarios. We can also create custom datasets and generate their representation by modifying the `create_dataset.py` file.
 
