@@ -139,7 +139,7 @@ Unlike the other maintenance strategies, NSGA-II has configurable parameters tha
 - `--mut_prob`: determines the probability that elements from the chromosome suffer a mutation.
 
 ```bash
-python -B -m simulation --dataset "datasets/dataset1.json" --algorithm "nsgaii" --pop_size 120 --n_gen 800 --cross_prob 1 --mut_prob 0.2
+python -B -m simulation --dataset "datasets/dataset1.json" --algorithm "nsgaii" --pop_size 300 --n_gen 3000 --cross_prob 0.8 --mut_prob 0.1
 ```
 
 #### Thea
