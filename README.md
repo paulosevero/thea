@@ -154,8 +154,21 @@ This section contains information about where to find Thea's manuscript and how 
 
 ### Access
 
-To be defined.
+Thea was published in the proceedings of the **31st Euromicro International Conference on Parallel, Distributed, and Network-Based Processing (PDP)** and can be accessed through the following link: [https://doi.org/10.1109/PDP59025.2023.00028](https://doi.org/10.1109/PDP59025.2023.00028).
 
 ### How to Cite
 
-To be defined.
+You can cite Thea in the following manner (alternative formats can be found in the [paper's link](https://doi.org/10.1109/PDP59025.2023.00028)):
+
+> P. Souza, C. Kayser, L. Roges and T. Ferreto, "Thea - a QoS, Privacy, and Power-aware Algorithm for Placing Applications on Federated Edges," 2023 31st Euromicro International Conference on Parallel, Distributed and Network-Based Processing (PDP), Naples, Italy, 2023, pp. 136-143, doi: 10.1109/PDP59025.2023.00028.
+
+```bibtex
+@inproceedings{souzathea2023,
+  author={Souza, Paulo and Kayser, Carlos and Roges, Lucas and Ferreto, Tiago},
+  booktitle={Euromicro International Conference on Parallel, Distributed and Network-Based Processing}, 
+  title={Thea - a QoS, Privacy, and Power-aware Algorithm for Placing Applications on Federated Edges}, 
+  year={2023},
+  pages={136-143},
+  doi={10.1109/PDP59025.2023.00028}
+}
+```
